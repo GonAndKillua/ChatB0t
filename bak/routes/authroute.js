@@ -113,7 +113,7 @@ route.post("/signup", upload.single("photo"), async (req, res, next) => {
         });
       } else {
         const result = await pool.query(
-          `INSERT INTO regi (firstname, lastname, email, gender, city, stat , pass, phone, university,photo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+          `INSERT INTO regi (firstname, lastname, email, gender, city, stat , pass, phone, university,photo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10)`,
           [
             req.body.firstName,
             req.body.lastName,
