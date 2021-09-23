@@ -1,0 +1,55 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  margin: 0.8rem auto;
+}
+
+.messageTop {
+  display: flex;
+}
+
+.messageImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.messageText {
+  padding: 0.8rem;
+  border-radius: 20px;
+  max-width: 20rem;
+  background-color: white;
+  word-break: break-all;
+}
+
+.message.own {
+  align-items: flex-end;
+}
+
+.message.own .messageText {
+  background-color: #1e294d;
+  color: white;
+}
+
+.chatbutton {
+  display: flex;
+  /* width: 12%;
+  height: 2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  background-color: #b8f06b; */
+}
+.chatOptionbutton {
+  width: 12%;
+  height: 3rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  background-color: #b8f06b;
+  padding: 1rem;
+}
