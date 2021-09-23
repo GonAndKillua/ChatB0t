@@ -15,6 +15,7 @@ export default function Signup() {
     formState: { errors },
   } = useForm();
   // ######### END ###############
+  const [fileState, setFileState] = useState();
 
   const [googleSignUP, setGoogleSignUp] = useState(true); // state setup for google form details
 
@@ -22,8 +23,21 @@ export default function Signup() {
 
   // ########## FORM SUBMIT HANDLER ################
   const onSubmit = async (data) => {
+    const formData = new FormData();
+
+    formData.append("firstName", data.firstName);
+    formData.append("lastName", data.lastName);
+    formData.append("gender", data.gender);
+    formData.append("photo", fileState);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("uname", data.uname);
+    formData.append("phone", data.phone);
+    formData.append("state", data.state);
+    formData.append("city", data.city);
+
     try {
-      const result = await SignUpUserApi(data);
+      const result = await SignUpUserApi(formData);
       console.log(result);
       history.push("/");
     } catch (error) {
@@ -59,7 +73,11 @@ export default function Signup() {
               <div class="card-body p-4 p-md-5">
                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
 
-                <form action="" onSubmit={handleSubmit(onSubmit)}>
+                <form
+                  action=""
+                  onSubmit={handleSubmit(onSubmit)}
+                  encType="multipart/form-data"
+                >
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
@@ -353,6 +371,40 @@ export default function Signup() {
                           name="uname"
                           {...register("uname", {
                             required: "University Name is required",
+                          })}
+                          class="form-control form-control-lg"
+                        />
+                        <label class="form-label" for="city"></label>
+                        <span
+                          style={{
+                            color: "red",
+                            paddingTop: ".5rem",
+                            display: "inline-block",
+                          }}
+                        >
+                          {" "}
+                          {errors.uname && (
+                            <i class="bi bi-exclamation-circle-fill"></i>
+                          )}
+                          &nbsp;
+                          {errors.uname?.message}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4 pb-2">
+                      <div class="form-outline">
+                        <input
+                          type="file"
+                          accept=".png .jpeg .jpg"
+                          id="photo"
+                          placeholder="Image"
+                          name="photo"
+                          onChange={(e) => {
+                            setFileState(e.target.files[0]);
+                          }}
+                          {...register("photo", {
+                            required: "Image  is required",
                           })}
                           class="form-control form-control-lg"
                         />
