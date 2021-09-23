@@ -109,7 +109,29 @@
 .mobile-menu {
   display: none;
 }
+/* .menu {
+  display: inline-block;
+  float: right;
+} */
 .cross {
+  display: none;
+}
+.mobile-menu {
+  display: none;
+  /* display: inline-block; */
+  float: right;
+  cursor: pointer;
+}
+.mainMenu {
+  display: block;
+}
+.DesktopMenu {
+  display: block;
+  /* display: inline-block; */
+  float: right;
+  cursor: pointer;
+}
+.hideDesktopMenu {
   display: none;
 }
 /* .close {
@@ -126,6 +148,9 @@
 } */
 
 @media only screen and (max-width: 800px) {
+  .DesktopMenu {
+    display: none;
+  }
   .mobile-menu {
     display: block;
     /* display: inline-block; */
@@ -154,6 +179,7 @@
     z-index: 2;
   }
   .chatMenu {
+    display: block;
     position: fixed;
     z-index: 3;
     width: 60%;
