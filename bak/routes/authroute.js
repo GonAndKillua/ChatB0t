@@ -18,7 +18,11 @@ const storage = multer.diskStorage({
     callBack(null, "images");
   },
   filename: function (req, file, callBack) {
-    callBack(null, new Date().toISOString() + path.extname(file.originalname));
+    callBack(
+      null,
+      new Date().toISOString().replace(/:/g, "-") +
+        path.extname(file.originalname)
+    );
   },
 });
 
@@ -31,7 +35,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-let upload = multer({ storage: storage });
+let upload = multer({ storage });
 
 // **********************************
 //          MAIL API KEY and SetUp
@@ -99,9 +103,7 @@ route.post("/login", async (req, res) => {
 // **********************************
 //          SignUp Handler
 // **********************************
-route.post("/signup", upload.single("photo"), async (req, res) => {
-  console.log(req.file);
-
+route.post("/signup", upload.single("photo"), async (req, res, next) => {
   try {
     bcrypt.hash(req.body.password, 10, async (err, hash) => {
       if (err) {

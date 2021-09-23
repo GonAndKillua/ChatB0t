@@ -48,6 +48,7 @@ const Messenger = () => {
           state: result.state,
           phone: result.phone,
           uname: result.uname,
+          photo: result.photo,
         });
         setFirstAppear((previousState) => !previousState);
       } catch (error) {}

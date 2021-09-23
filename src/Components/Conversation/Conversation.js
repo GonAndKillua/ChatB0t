@@ -1,13 +1,17 @@
 import React from "react";
 import "./Conversation.css";
-import img from "../../images/avtar.png";
+import img from "../../images/avatar.png";
 
 const Conversation = ({ userdata }) => {
   return (
     <>
       <div className="color container">
         <div className="conversation">
-          <img className="conversationImg" src={img} alt="" />
+          <img
+            className="conversationImg"
+            src={`../../../bak/images/${userdata.photo}`}
+            alt={userdata.fullname}
+          />
           <span className="conversationName">{userdata.fullname}</span>
         </div>
 
