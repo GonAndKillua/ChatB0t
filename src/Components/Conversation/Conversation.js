@@ -1,6 +1,6 @@
 import React from "react";
 import "./Conversation.css";
-import img from "../../images/avatar.png";
+// import img from "../../images/avatar.png";
 
 const Conversation = ({ userdata }) => {
   return (

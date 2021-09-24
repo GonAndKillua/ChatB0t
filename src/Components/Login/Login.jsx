@@ -37,7 +37,12 @@ export default function Login() {
         isLogin: true,
         token: response.data.token,
       });
-      console.log(response.data.token);
+      console.log(response.data.message);
+
+      // Setting token in local Storage
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("isLogin", true);
+      // window.location.reload();
       toast.success(response.data.message, {
         position: "top-right",
         autoClose: 5000,
@@ -47,22 +52,18 @@ export default function Login() {
         draggable: true,
         progress: undefined,
       });
-      // Setting token in local Storage
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("isLogin", true);
-      // window.location.reload();
       history.push("/chat");
     } catch (error) {
-      console.log("Password didnt match");
-      toast.error(error.response.data.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      console.log(error.response);
+      // toast.error(error.response.data.message, {
+      //   position: "top-right",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      // });
     }
   };
 

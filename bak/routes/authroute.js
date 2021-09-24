@@ -96,6 +96,7 @@ route.post("/login", async (req, res) => {
       }
     );
   } catch (error) {
+    res.status(401).json({ message: "message" });
     console.log(error.message);
   }
 });
