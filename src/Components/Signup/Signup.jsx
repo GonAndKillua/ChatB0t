@@ -37,31 +37,56 @@ export default function Signup() {
     formData.append("phone", data.phone);
     formData.append("state", data.state);
     formData.append("city", data.city);
-
-    SignUpUserApi(formData)
-      .then((result) => {
-        toast.success(result.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        history.push("/");
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+    try {
+      const result = await SignUpUserApi(formData);
+      toast.success(result.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
+      setTimeout(() => {
+        history.push("/");
+      }, 5000);
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    // SignUpUserApi(formData)
+    //   .then((result) => {
+    //     toast.success(result.data.message, {
+    //       position: "top-right",
+    //       autoClose: 5000,
+    //       hideProgressBar: false,
+    //       closeOnClick: true,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //     });
+    //     history.push("/");
+    //   })
+    //   .catch((error) => {
+    //     // toast.error(error.response.data.message, {
+    //     //   position: "top-right",
+    //     //   autoClose: 5000,
+    //     //   hideProgressBar: false,
+    //     //   closeOnClick: true,
+    //     //   pauseOnHover: true,
+    //     //   draggable: true,
+    //     //   progress: undefined,
+    //     // });
+    //     console.log(error.response);
+    //   });
   };
   // ########## FORM SUBMIT HANDLER END ################
 

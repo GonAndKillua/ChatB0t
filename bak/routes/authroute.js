@@ -15,6 +15,9 @@ let path = require("path");
 //         Image Storage Config
 // **********************************
 const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./images");
+  },
   filename: function (req, file, callBack) {
     callBack(
       null,
@@ -33,7 +36,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-let upload = multer({ storage, fileFilter });
+let upload = multer({ storage: storage, fileFilter });
 
 // **********************************
 //          MAIL API KEY and SetUp
@@ -107,17 +110,19 @@ route.post("/signup", upload.single("photo"), async (req, res, next) => {
     const result = await pool.query(`SELECT * FROM regi WHERE email=$1`, [
       req.body.email,
     ]);
-    if (result.rows[0].email) {
+    console.log(req.file);
+    if (result.rows.length == 0) {
       bcrypt.hash(req.body.password, 10, async (err, hash) => {
         if (err) {
           // bcrypt block's error
           return res.status(500).json({
             error: err.message,
+            message: "Bcrypt Error",
           });
         } else {
           cloudinary.uploader
             .upload(req.file.path)
-            .then((response) => {
+            .then(async (response) => {
               const result = await pool.query(
                 `INSERT INTO regi (firstname, lastname, email, gender, city, stat , pass, phone, university,photo,photo_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10, $11)`,
                 [
@@ -154,6 +159,7 @@ route.post("/signup", upload.single("photo"), async (req, res, next) => {
   } catch (error) {
     // try block's catch
     console.log(error);
+    return res.status(500).json({ message: error.message });
   }
 });
 

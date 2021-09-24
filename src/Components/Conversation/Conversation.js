@@ -9,7 +9,7 @@ const Conversation = ({ userdata }) => {
         <div className="conversation">
           <img
             className="conversationImg"
-            src={`../../../bak/images/${userdata.photo}`}
+            src={userdata.photo}
             alt={userdata.fullname}
           />
           <span className="conversationName">{userdata.fullname}</span>

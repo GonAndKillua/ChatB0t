@@ -28,48 +28,47 @@ export default function Login() {
 
   // ################## FORM SUBMIT HANDLER START ############################
   const onSubmit = async (data) => {
-    LoginUserApi({
-      email: data.email,
-      password: data.password,
-    })
-      .then((response) => {
-        setloginvalid({
-          ...Loginvalid,
-          isLogin: true,
-          token: response.data.token,
-        });
-        console.log(response.data.message);
-
-        // Setting token in local Storage
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("isLogin", true);
-        // window.location.reload();
-        // <Delayed>
-
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        setTimeout(() => {
-          history.push("/chat");
-        }, 5000);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+    try {
+      const response = await LoginUserApi({
+        email: data.email,
+        password: data.password,
       });
+      setloginvalid({
+        ...Loginvalid,
+        isLogin: true,
+        token: response.data.token,
+      });
+      console.log(response.data.message);
+
+      // Setting token in local Storage
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("isLogin", true);
+      // window.location.reload();
+      // <Delayed>
+
+      toast.success(response.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(() => {
+        history.push("/chat");
+      }, 5000);
+    } catch (err) {
+      toast.error(err.response.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
   // ################## FORM SUBMIT HANDLER END ############################
