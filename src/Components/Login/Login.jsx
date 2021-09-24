@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { GoogleLogin } from "react-google-login";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Delayed from "../Delayed";
+
 // import signupimg from "../img/signup.svg";
 
 export default function Login() {
@@ -44,7 +44,8 @@ export default function Login() {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("isLogin", true);
         // window.location.reload();
-        <Delayed>
+        // <Delayed>
+
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 5000,
@@ -54,8 +55,9 @@ export default function Login() {
           draggable: true,
           progress: undefined,
         });
-        </Delayed>
-        history.push("/chat");
+        setTimeout(() => {
+          history.push("/chat");
+        }, 5000);
       })
       .catch((error) => {
         toast.error(error.response.data.message, {
