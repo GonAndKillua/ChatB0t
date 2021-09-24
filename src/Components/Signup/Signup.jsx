@@ -37,10 +37,6 @@ export default function Signup() {
     formData.append("phone", data.phone);
     formData.append("state", data.state);
     formData.append("city", data.city);
-<<<<<<< HEAD
-
-=======
->>>>>>> b9df7b380f6be57a69cb472e69fe75795c78ddaa
     try {
       const result = await SignUpUserApi(formData);
       toast.success(result.data.message, {
@@ -66,34 +62,6 @@ export default function Signup() {
         progress: undefined,
       });
     }
-<<<<<<< HEAD
-=======
-    // SignUpUserApi(formData)
-    //   .then((result) => {
-    //     toast.success(result.data.message, {
-    //       position: "top-right",
-    //       autoClose: 5000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     });
-    //     history.push("/");
-    //   })
-    //   .catch((error) => {
-    //     // toast.error(error.response.data.message, {
-    //     //   position: "top-right",
-    //     //   autoClose: 5000,
-    //     //   hideProgressBar: false,
-    //     //   closeOnClick: true,
-    //     //   pauseOnHover: true,
-    //     //   draggable: true,
-    //     //   progress: undefined,
-    //     // });
-    //     console.log(error.response);
-    //   });
->>>>>>> b9df7b380f6be57a69cb472e69fe75795c78ddaa
   };
   // ########## FORM SUBMIT HANDLER END ################
 
