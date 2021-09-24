@@ -8,11 +8,13 @@ import { useForm } from "react-hook-form";
 import { GoogleLogin } from "react-google-login";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Delayed from "../Delayed";
 // import signupimg from "../img/signup.svg";
 
 export default function Login() {
   // STATE setup for checking is login vcalid for route protection
   const [Loginvalid, setloginvalid] = useContext(LoginContext);
+  const [showToast, setShowToast] = useState(false);
 
   // REACT-HOOK-FORM SETUP
   const {
@@ -42,6 +44,7 @@ export default function Login() {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("isLogin", true);
         // window.location.reload();
+        <Delayed>
         toast.success(response.data.message, {
           position: "top-right",
           autoClose: 5000,
@@ -51,6 +54,7 @@ export default function Login() {
           draggable: true,
           progress: undefined,
         });
+        </Delayed>
         history.push("/chat");
       })
       .catch((error) => {
