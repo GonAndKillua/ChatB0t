@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const pool = require("../model/database");
 const { OAuth2Client } = require("google-auth-library");
+const cloudinary = require("../middleware/cloudinary");
 // const nodemailer = require("nodemailer");
 // const sendgridTransport = require("nodemailer-sendgrid-transport");
 const crypto = require("crypto");
@@ -14,9 +15,6 @@ let path = require("path");
 //         Image Storage Config
 // **********************************
 const storage = multer.diskStorage({
-  destination: function (req, file, callBack) {
-    callBack(null, "images");
-  },
   filename: function (req, file, callBack) {
     callBack(
       null,
@@ -117,25 +115,35 @@ route.post("/signup", upload.single("photo"), async (req, res, next) => {
             error: err.message,
           });
         } else {
-          const result = await pool.query(
-            `INSERT INTO regi (firstname, lastname, email, gender, city, stat , pass, phone, university,photo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10)`,
-            [
-              req.body.firstName,
-              req.body.lastName,
-              req.body.email,
-              req.body.gender,
-              req.body.city,
-              req.body.state,
-              hash,
-              req.body.phone,
-              req.body.uname,
-              req.file.filename,
-            ]
-          );
+          cloudinary.uploader
+            .upload(req.file.path)
+            .then((response) => {
+              const result = await pool.query(
+                `INSERT INTO regi (firstname, lastname, email, gender, city, stat , pass, phone, university,photo,photo_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10, $11)`,
+                [
+                  req.body.firstName,
+                  req.body.lastName,
+                  req.body.email,
+                  req.body.gender,
+                  req.body.city,
+                  req.body.state,
+                  hash,
+                  req.body.phone,
+                  req.body.uname,
+                  response.secure_url,
+                  response.public_id,
+                ]
+              );
 
-          res.status(200).json({
-            message: "Sucessful",
-          });
+              return res.status(200).json({
+                message: "Sucessful",
+              });
+            })
+            .catch((error) => {
+              return res.status(401).json({
+                message: "failed to upload image",
+              });
+            });
         }
       });
     } else {
