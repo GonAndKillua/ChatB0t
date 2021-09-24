@@ -26,45 +26,44 @@ export default function Login() {
 
   // ################## FORM SUBMIT HANDLER START ############################
   const onSubmit = async (data) => {
-    try {
-      const response = await LoginUserApi({
-        email: data.email,
-        password: data.password,
-      });
-      // setting boolean to login validation
-      setloginvalid({
-        ...Loginvalid,
-        isLogin: true,
-        token: response.data.token,
-      });
-      console.log(response.data.message);
+    LoginUserApi({
+      email: data.email,
+      password: data.password,
+    })
+      .then((response) => {
+        setloginvalid({
+          ...Loginvalid,
+          isLogin: true,
+          token: response.data.token,
+        });
+        console.log(response.data.message);
 
-      // Setting token in local Storage
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("isLogin", true);
-      // window.location.reload();
-      toast.success(response.data.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+        // Setting token in local Storage
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("isLogin", true);
+        // window.location.reload();
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        history.push("/chat");
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
-      history.push("/chat");
-    } catch (error) {
-      console.log(error.response);
-      // toast.error(error.response.data.message, {
-      //   position: "top-right",
-      //   autoClose: 5000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      // });
-    }
   };
 
   // ################## FORM SUBMIT HANDLER END ############################
