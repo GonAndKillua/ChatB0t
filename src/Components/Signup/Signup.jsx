@@ -38,30 +38,31 @@ export default function Signup() {
     formData.append("state", data.state);
     formData.append("city", data.city);
 
-    SignUpUserApi(formData)
-      .then((result) => {
-        toast.success(result.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        history.push("/");
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+    try {
+      const result = await SignUpUserApi(formData);
+      toast.success(result.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
+      setTimeout(() => {
+        history.push("/");
+      }, 5000);
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
   // ########## FORM SUBMIT HANDLER END ################
 
