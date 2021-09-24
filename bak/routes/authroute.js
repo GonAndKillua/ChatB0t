@@ -96,7 +96,7 @@ route.post("/login", async (req, res) => {
       }
     );
   } catch (error) {
-    res.status(401).json({ message: "message" });
+    res.status(401).json({ message: "Email is not Found" });
     console.log(error.message);
   }
 });
