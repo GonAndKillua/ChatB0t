@@ -35,7 +35,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-let upload = multer({ storage });
+let upload = multer({ storage, fileFilter });
 
 // **********************************
 //          MAIL API KEY and SetUp
@@ -58,46 +58,46 @@ route.post("/login", async (req, res) => {
     results = await pool.query(`SELECT * FROM regi WHERE email=$1`, [
       req.body.email,
     ]);
+    bcrypt.compare(
+      req.body.password,
+      results.rows[0].pass,
+      async (err, result) => {
+        if (!result) {
+          return res.status(401).json({
+            message: "Password didn't match",
+          });
+        }
+        if (result) {
+          // console.log("result=", result);
+
+          const token = jwt.sign(
+            {
+              email: results.rows[0].email,
+              firstname: results.rows[0].firstname,
+              lastname: results.rows[0].lastname,
+              gender: results.rows[0].gender,
+              state: results.rows[0].stat,
+              city: results.rows[0].city,
+              uname: results.rows[0].university,
+              phone: results.rows[0].phone,
+              photo: results.rows[0].photo,
+            },
+            "this is key", // Token secret key
+            {
+              expiresIn: "24h",
+            }
+          );
+
+          return res.status(200).json({
+            token: token,
+            message: "Login Successfully",
+          });
+        }
+      }
+    );
   } catch (error) {
     console.log(error.message);
   }
-
-  bcrypt.compare(
-    req.body.password,
-    results.rows[0].pass,
-    async (err, result) => {
-      if (!result) {
-        return res.status(401).json({
-          message: "Password didn't match",
-        });
-      }
-      if (result) {
-        // console.log("result=", result);
-
-        const token = jwt.sign(
-          {
-            email: results.rows[0].email,
-            firstname: results.rows[0].firstname,
-            lastname: results.rows[0].lastname,
-            gender: results.rows[0].gender,
-            state: results.rows[0].stat,
-            city: results.rows[0].city,
-            uname: results.rows[0].university,
-            phone: results.rows[0].phone,
-            photo: results.rows[0].photo,
-          },
-          "this is key", // Token secret key
-          {
-            expiresIn: "24h",
-          }
-        );
-
-        return res.status(200).json({
-          token: token,
-        });
-      }
-    }
-  );
 });
 
 // **********************************
@@ -105,34 +105,43 @@ route.post("/login", async (req, res) => {
 // **********************************
 route.post("/signup", upload.single("photo"), async (req, res, next) => {
   try {
-    bcrypt.hash(req.body.password, 10, async (err, hash) => {
-      if (err) {
-        // bcrypt block's error
-        return res.status(500).json({
-          error: err.message,
-        });
-      } else {
-        const result = await pool.query(
-          `INSERT INTO regi (firstname, lastname, email, gender, city, stat , pass, phone, university,photo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10)`,
-          [
-            req.body.firstName,
-            req.body.lastName,
-            req.body.email,
-            req.body.gender,
-            req.body.city,
-            req.body.state,
-            hash,
-            req.body.phone,
-            req.body.uname,
-            req.file.filename,
-          ]
-        );
+    const result = await pool.query(`SELECT * FROM regi WHERE email=$1`, [
+      req.body.email,
+    ]);
+    if (result.rows[0].email) {
+      bcrypt.hash(req.body.password, 10, async (err, hash) => {
+        if (err) {
+          // bcrypt block's error
+          return res.status(500).json({
+            error: err.message,
+          });
+        } else {
+          const result = await pool.query(
+            `INSERT INTO regi (firstname, lastname, email, gender, city, stat , pass, phone, university,photo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10)`,
+            [
+              req.body.firstName,
+              req.body.lastName,
+              req.body.email,
+              req.body.gender,
+              req.body.city,
+              req.body.state,
+              hash,
+              req.body.phone,
+              req.body.uname,
+              req.file.filename,
+            ]
+          );
 
-        res.status(200).json({
-          message: "Sucessful",
-        });
-      }
-    });
+          res.status(200).json({
+            message: "Sucessful",
+          });
+        }
+      });
+    } else {
+      res.status(401).json({
+        message: "Sorry Email already exists",
+      });
+    }
   } catch (error) {
     // try block's catch
     console.log(error);

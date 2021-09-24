@@ -5,6 +5,8 @@ import { GoogleLogin } from "react-google-login";
 import "../Signup/signup.css";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Signup() {
   // ####### REACT-HOOK-FORM SETUP #########
@@ -39,9 +41,27 @@ export default function Signup() {
     try {
       const result = await SignUpUserApi(formData);
       console.log(result);
+      toast.success(result.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       history.push("/");
     } catch (error) {
       console.log("Error: ", error);
+      toast.error(error.response.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
   // ########## FORM SUBMIT HANDLER END ################
@@ -63,6 +83,17 @@ export default function Signup() {
   //############### GETTING DATA FROM GOOGLE END ##################
   return (
     <section class="gradient-custom">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div class="container py-5 h-100">
         <div class="row justify-content-center align-items-center h-100">
           <div class="col-12 col-lg-9 col-xl-7">
