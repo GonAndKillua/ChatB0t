@@ -53,12 +53,13 @@ const client = new OAuth2Client(process.env.OAUTH_CLIENT_KEY);
 //          Login Handler
 // **********************************
 route.post("/login", async (req, res) => {
-  // console.log(req.body);
+  console.log("body:", req.body);
   let results;
   try {
     results = await pool.query(`SELECT * FROM regi WHERE email=$1`, [
       req.body.email,
     ]);
+    // if (results.rows[0] == 1) {
     bcrypt.compare(
       req.body.password,
       results.rows[0].pass,
@@ -96,6 +97,9 @@ route.post("/login", async (req, res) => {
         }
       }
     );
+    // } else {
+    //   res.status(401).json({ message: "Email is not Found" });
+    // }
   } catch (error) {
     res.status(401).json({ message: "Email is not Found" });
     console.log(error.message);
@@ -106,6 +110,7 @@ route.post("/login", async (req, res) => {
 //          SignUp Handler
 // **********************************
 route.post("/signup", upload.single("photo"), async (req, res, next) => {
+  console.log(typeof process.env.CLOUDINARY_API_KEY);
   try {
     const result = await pool.query(`SELECT * FROM regi WHERE email=$1`, [
       req.body.email,
@@ -249,8 +254,8 @@ route.patch("/forgetPassword", async (req, res) => {
             `INSERT INTO otp(email,token,expiretime) VALUES($1,$2,$3)`,
             [email_verified.rows[0].email, token, Date.now() + 300 * 1000]
           );
-          console.log(email_verified.rows[0].email);
-          console.log(token);
+          // console.log(email_verified.rows[0].email);
+          // console.log(token);
           sgmail
             .send({
               from: process.env.EMAIL,

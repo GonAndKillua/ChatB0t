@@ -30,7 +30,7 @@ export default function Signup() {
     formData.append("firstName", data.firstName);
     formData.append("lastName", data.lastName);
     formData.append("gender", data.gender);
-    formData.append("photo", fileState);
+    formData.append("photo", data.photo[0]);
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("uname", data.uname);
@@ -451,7 +451,7 @@ export default function Signup() {
                       <div class="form-outline">
                         <input
                           type="file"
-                          accept=".png .jpeg .jpg"
+                          accept=".png,.jpeg,.jpg"
                           id="photo"
                           placeholder="Image"
                           name="photo"
