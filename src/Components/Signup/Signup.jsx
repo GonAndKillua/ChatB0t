@@ -7,7 +7,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import IMG from "./../../images/avtar.png";
 export default function Signup() {
   // ####### REACT-HOOK-FORM SETUP #########
   const {
@@ -19,7 +19,7 @@ export default function Signup() {
   // ######### END ###############
   const [fileState, setFileState] = useState();
 
-  const [googleSignUP, setGoogleSignUp] = useState(true); // state setup for google form details
+  const [googleSignUP, setGoogleSignUp] = useState(false); // state setup for google form details
 
   const history = useHistory(); // History for redirection
 
@@ -62,31 +62,6 @@ export default function Signup() {
         progress: undefined,
       });
     }
-    // SignUpUserApi(formData)
-    //   .then((result) => {
-    //     toast.success(result.data.message, {
-    //       position: "top-right",
-    //       autoClose: 5000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     });
-    //     history.push("/");
-    //   })
-    //   .catch((error) => {
-    //     // toast.error(error.response.data.message, {
-    //     //   position: "top-right",
-    //     //   autoClose: 5000,
-    //     //   hideProgressBar: false,
-    //     //   closeOnClick: true,
-    //     //   pauseOnHover: true,
-    //     //   draggable: true,
-    //     //   progress: undefined,
-    //     // });
-    //     console.log(error.response);
-    //   });
   };
   // ########## FORM SUBMIT HANDLER END ################
 
@@ -106,411 +81,226 @@ export default function Signup() {
   };
   //############### GETTING DATA FROM GOOGLE END ##################
   return (
-    <section class="gradient-custom">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <div class="container py-5 h-100">
-        <div class="row justify-content-center align-items-center h-100">
-          <div class="col-12 col-lg-9 col-xl-7">
-            <div
-              class="card shadow-2-strong card-registration"
-              style={{ borderRadius: "15px" }}
-            >
-              <div class="card-body p-4 p-md-5">
-                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-
-                <form
-                  action=""
-                  onSubmit={handleSubmit(onSubmit)}
-                  encType="multipart/form-data"
-                >
-                  <div class="row">
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <input
-                          placeholder="First Name"
-                          type="text"
-                          id="fName"
-                          name="firstName"
-                          {...register("firstName", {
-                            required: "first Name  is required",
-                            maxLength: {
-                              value: 20,
-                              message: "length should be less then 20",
-                            },
-                          })}
-                          class="form-control form-control-lg"
-                        />
-                        <label class="form-label" for="fName"></label>
-                        <span
-                          style={{
-                            color: "red",
-                            paddingTop: ".5rem",
-                            display: "inline-block",
-                          }}
-                        >
-                          {" "}
-                          {errors.firstName && (
-                            <i class="bi bi-exclamation-circle-fill"></i>
-                          )}
-                          &nbsp;
-                          {errors.firstName?.message}
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <input
-                          type="text"
-                          placeholder="Last Name"
-                          id="lastName"
-                          name="lastName"
-                          {...register("lastName", {
-                            required: "last Name is required",
-                            maxLength: {
-                              value: 20,
-                              message: "length should be less then 20",
-                            },
-                          })}
-                          class="form-control form-control-lg"
-                        />
-                        <label class="form-label" for="lastName"></label>
-                        <span
-                          style={{
-                            color: "red",
-                            paddingTop: ".5rem",
-                            display: "inline-block",
-                          }}
-                        >
-                          {" "}
-                          {errors.lastName && (
-                            <i class="bi bi-exclamation-circle-fill"></i>
-                          )}
-                          &nbsp;
-                          {errors.lastName?.message}
-                        </span>
-                      </div>
+    <>
+      <section class="h-100 bg-dark">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+              <div class="card card-registration my-4">
+                <div class="row g-0">
+                  <div class="col-xl-6 d-none d-xl-block left-drawer">
+                    <div className="left-side">
+                      <img src={IMG} alt="Sample photo" class="img-fluid" />
+                      <h4>
+                        Lorem Ipsum is simply dummy text of the printing and
+                        typesetting industry. Lorem Ipsum has been the
+                        industry's standard dummy text ever since the 1500s,
+                      </h4>
                     </div>
                   </div>
+                  <div class="col-xl-6">
+                    <div class="card-body p-md-5 text-black">
+                      <h4 class="mb-5 text-uppercase">
+                        Student registration form
+                      </h4>
 
-                  <div class="row">
-                    <div class="col-md-6 mb-4 d-flex align-items-center">
-                      <div class=" imput-group form-outline datepicker w-100 has-validation">
-                        <input
-                          type="text"
-                          id="validationCustomEmail"
-                          aria-describedby="inputGroupPrepend2"
-                          placeholder="E-mail"
-                          name="email"
-                          {...register("email", {
-                            required: "Email is required",
-                            pattern: {
-                              value:
-                                /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-                              message: "Please Enter a Valid Email Address",
-                            },
-                          })}
-                          class="form-control form-control-lg"
-                          id="validationDefaultUsername"
-                        />
-
-                        <label
-                          for="validationDefaultUsername"
-                          class="form-label"
-                        ></label>
-                        <span
-                          style={{
-                            color: "red",
-                            paddingTop: ".5rem",
-                            display: "inline-block",
-                          }}
-                        >
-                          {" "}
-                          {errors.email && (
-                            <i class="bi bi-exclamation-circle-fill"></i>
-                          )}
-                          &nbsp;
-                          {errors.email?.message}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <select
-                          name="gender"
-                          placeholder="Select Gender"
-                          {...register("gender", {
-                            required: "Gender is required",
-                          })}
-                          class="form-select form-select-lg"
-                          aria-label=".form-select-lg example"
-                        >
-                          <option value="Others">Others</option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                        </select>
-                        <label class="form-label" for="city"></label>
-                        <span
-                          style={{
-                            color: "red",
-                            paddingTop: ".5rem",
-                            display: "inline-block",
-                          }}
-                        >
-                          {" "}
-                          {errors.gender && (
-                            <i class="bi bi-exclamation-circle-fill"></i>
-                          )}
-                          &nbsp;
-                          {errors.gender?.message}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-6 mb-4 pb-2">
-                      <div class="form-outline">
-                        <select
-                          name="city"
-                          {...register("city", {
-                            required: "City is required",
-                          })}
-                          class="form-select form-select-lg"
-                          aria-label=".form-select-lg example"
-                        >
-                          <option value="Las Vegas">Las Vegas</option>
-                          <option value="Los Angles">Los Angles</option>
-                          <option value="New York">New York</option>
-                          <option value="Wahingto D.C.">Wahingto D.C.</option>
-                          <option value="New Jersy">New Jersy</option>
-                          <option value="Houston">Houston</option>
-                          <option value="Chicago">Chicago</option>
-                          <option value="Detroit"> Detroit</option>
-                          <option value="Boston">Boston</option>
-                        </select>
-                        <label class="form-label" for="city"></label>
-                        <p style={{ color: "red" }}>{errors.city?.message}</p>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6 mb-4 pb-2">
-                      <div class="form-outline">
-                        <select
-                          name="state"
-                          {...register("state", {
-                            required: "State is required",
-                          })}
-                          class="form-select form-select-lg"
-                          aria-label=".form-select-lg example"
-                        >
-                          <option value="Nevada">Nevada</option>
-                          <option value="Tennessee">Tennessee</option>
-                          <option value="Maryland">Maryland</option>
-                          <option value="Florida">Florida</option>
-                          <option value="Arizona">Arizona</option>
-                          <option value="Texas">Texas</option>
-                          <option value="Illinois">Illinois</option>
-                          <option value="Georgia"> Georgia</option>
-                          <option value="California">California</option>
-                        </select>
-                        <label class="form-label" for="state"></label>
-                        <span
-                          style={{
-                            color: "red",
-                            paddingTop: ".5rem",
-                            display: "inline-block",
-                          }}
-                        >
-                          {" "}
-                          {errors.city && (
-                            <i class="bi bi-exclamation-circle-fill"></i>
-                          )}
-                          &nbsp;
-                          {errors.city?.message}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    {googleSignUP && (
-                      <div class="col-md-6 mb-4 pb-2">
-                        <div class="form-outline">
-                          <input
-                            type="password"
-                            placeholder="Password"
-                            id="password"
-                            name="password"
-                            {...register("password", {
-                              required: "Password is required",
-                              pattern: {
-                                value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
-
-                                message: "Please enter a valid Password",
-                              },
-                            })}
-                            class="form-control form-control-lg"
-                          />
-                          <label class="form-label" for="password"></label>
-                          <span
-                            style={{
-                              color: "red",
-                              paddingTop: ".5rem",
-                              display: "inline-block",
-                            }}
-                          >
-                            {" "}
-                            {errors.password && (
-                              <i class="bi bi-exclamation-circle-fill"></i>
-                            )}
-                            &nbsp;
-                            {errors.password?.message}
-                          </span>
+                      <div class="row">
+                        <div class="col-md-6 mb-4">
+                          <div class="form-outline">
+                            <input
+                              type="text"
+                              id="form3Example1m"
+                              class="form-control form-control-lg"
+                              placeholder="First name"
+                            />
+                            {/* <label class="form-label" for="form3Example1m">
+                              First name
+                            </label> */}
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                          <div class="form-outline">
+                            <input
+                              type="text"
+                              id="form3Example1n"
+                              class="form-control form-control-lg"
+                              placeholder="Last name"
+                            />
+                            {/* <label class="form-label" for="form3Example1n">
+                              Last name
+                            </label> */}
+                          </div>
                         </div>
                       </div>
-                    )}
-                    <div class="col-md-6 mb-4 pb-2">
-                      <div class="form-outline">
-                        <input
-                          type="phone"
-                          id="phone"
-                          placeholder="Phone"
-                          name="phone"
-                          // /^\d{10}$/
-                          {...register("phone", {
-                            required: "Phone is required",
-                            pattern: {
-                              value: /^\d{10}$/,
 
-                              message: "Please enter a valid Phone number",
-                            },
-                          })}
+                      <div class="form-outline mb-4">
+                        <input
+                          type="text"
+                          id="form3Example8"
                           class="form-control form-control-lg"
+                          placeholder="Email"
                         />
-                        <label class="form-label" for="phone"></label>
-                        <span
-                          style={{
-                            color: "red",
-                            paddingTop: ".5rem",
-                            display: "inline-block",
-                          }}
+                        {/* <label class="form-label" for="form3Example8">
+                          E-mail
+                        </label> */}
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 mb-4 pb-2">
+                          <div class="form-outline">
+                            <select
+                              name="Gender"
+                              {...register("gender", {
+                                required: "Gender is required",
+                              })}
+                              class="form-select form-select-lg"
+                              aria-label=".form-select-lg example"
+                            >
+                              <option disabled>Gender</option>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                              <option value="Others">Others</option>
+                            </select>
+                            <label class="form-label" for="gender"></label>
+                            <p style={{ color: "red" }}>
+                              {errors.gender?.message}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-4 pb-2">
+                          <div class="form-outline">
+                            <select
+                              name="state"
+                              {...register("state", {
+                                required: "State is required",
+                              })}
+                              class="form-select form-select-lg"
+                              aria-label=".form-select-lg example"
+                            >
+                              <option disabled value="State">
+                                State
+                              </option>
+                              <option value="Alabama">Alabama</option>
+                              <option value="Alaska">Alaska</option>
+                              <option value="Arizona">Arizona</option>
+                              <option value="Arkansas">Arkansas</option>
+                              <option value="California">California</option>
+                              <option value="Colorado">Colorado</option>
+                              <option value="Connecticut">Connecticut</option>
+                              <option value="Delaware">Delaware</option>
+                              <option value="Florida">Florida</option>
+                              <option value="Georgia">Georgia</option>
+                              <option value="Hawaii">Hawaii</option>
+                              <option value="Idaho">Idaho</option>
+                              <option value="Illinois">Illinois</option>
+                              <option value="Indiana">Indiana</option>
+                              <option value="Iowa">Iowa</option>
+                              <option value="Kansas">Kansas</option>
+                              <option value="Kentucky">Kentucky</option>
+                              <option value="Louisiana">Louisiana</option>
+                              <option value="Maine">Maine</option>
+                              <option value="Maryland">Maryland</option>
+                              <option value="Massachusetts">
+                                Massachusetts
+                              </option>
+                              <option value="Michigan">Michigan</option>
+                              <option value="Minnesota">Minnesota</option>
+                              <option value="Mississippi">Mississippi</option>
+                              <option value="Missouri">Missouri</option>
+                              <option value="Montana">Montana</option>
+                              <option value="Nebraska">Nebraska</option>
+                              <option value="Nevada">Nevada</option>
+                              <option value="New Hampshire">
+                                New Hampshire
+                              </option>
+                              <option value="New Jersey">New Jersey</option>
+                              <option value="New Mexico">New Mexico</option>
+                              <option value="New York">New York</option>
+                              <option value="North Carolina">
+                                North Carolina
+                              </option>
+                              <option value="North Dakota">North Dakota</option>
+                              <option value="Ohio">Ohio</option>
+                              <option value="Oklahoma">Oklahoma</option>
+                              <option value="Oregon">Oregon</option>
+                              <option value="Pennsylvania">Pennsylvania</option>
+                              <option value="Rhode Island">Rhode Island</option>
+                              <option value="South Carolina">
+                                South Carolina
+                              </option>
+                              <option value="South Dakota">South Dakota</option>
+                              <option value="Tennessee">Tennessee</option>
+                              <option value="Texas">Texas</option>
+                              <option value="Utah">Utah</option>
+                              <option value="Vermont">Vermont</option>
+                              <option value="Virginia">Virginia</option>
+                              <option value="Washington">Washington</option>
+                              <option value="West Virginia">
+                                West Virginia
+                              </option>
+                              <option value="Wisconsin">Wisconsin</option>
+                              <option value="Wyoming">Wyoming</option>
+                            </select>
+                            <label class="form-label" for="state"></label>
+                            <p style={{ color: "red" }}>
+                              {errors.state?.message}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <input
+                          type="text"
+                          id="form3Example90"
+                          class="form-control form-control-lg"
+                          placeholder="School/College"
+                        />
+                        {/* <label class="form-label" for="form3Example90">
+                          School/College
+                        </label> */}
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <input
+                          type="password"
+                          id="form3Example99"
+                          class="form-control form-control-lg"
+                          placeholder="Password"
+                        />
+                        {/* <label class="form-label" for="form3Example99">
+                          Password
+                        </label> */}
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <input
+                          type="password"
+                          id="form3Example97"
+                          class="form-control form-control-lg"
+                          placeholder="Confirm Password"
+                        />
+                        {/* <label class="form-label" for="form3Example97">
+                          Confirm Password
+                        </label> */}
+                      </div>
+
+                      <div class="d-flex justify-content-end pt-3">
+                        <button
+                          type="button"
+                          class="btn btn-warning btn-lg ms-2"
                         >
-                          {" "}
-                          {errors.phone && (
-                            <i class="bi bi-exclamation-circle-fill"></i>
-                          )}
-                          &nbsp;
-                          {errors.phone?.message}
-                        </span>
+                          Sign Up
+                        </button>
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-6 mb-4 pb-2">
-                      <div class="form-outline">
-                        <input
-                          type="uname"
-                          id="uname"
-                          placeholder="University Name"
-                          name="uname"
-                          {...register("uname", {
-                            required: "University Name is required",
-                          })}
-                          class="form-control form-control-lg"
-                        />
-                        <label class="form-label" for="city"></label>
-                        <span
-                          style={{
-                            color: "red",
-                            paddingTop: ".5rem",
-                            display: "inline-block",
-                          }}
-                        >
-                          {" "}
-                          {errors.uname && (
-                            <i class="bi bi-exclamation-circle-fill"></i>
-                          )}
-                          &nbsp;
-                          {errors.uname?.message}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6 mb-4 pb-2">
-                      <div class="form-outline">
-                        <input
-                          type="file"
-                          accept=".png,.jpeg,.jpg"
-                          id="photo"
-                          placeholder="Image"
-                          name="photo"
-                          onChange={(e) => {
-                            setFileState(e.target.files[0]);
-                          }}
-                          {...register("photo", {
-                            required: "Image  is required",
-                          })}
-                          class="form-control form-control-lg"
-                        />
-                        <label class="form-label" for="city"></label>
-                        <span
-                          style={{
-                            color: "red",
-                            paddingTop: ".5rem",
-                            display: "inline-block",
-                          }}
-                        >
-                          {" "}
-                          {errors.uname && (
-                            <i class="bi bi-exclamation-circle-fill"></i>
-                          )}
-                          &nbsp;
-                          {errors.uname?.message}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="mt-4 pt-2">
-                    <input
-                      class="btn btn-primary btn-lg"
-                      type="submit"
-                      // onClick={addSignUpDetails}
-                      value="Submit"
-                    />
-                  </div>
-                  {/* googleAuthentication  Part */}
-                  <GoogleLogin
-                    clientId="456640558973-a9bgdeglb743b2vt31elg15vj85do09a.apps.googleusercontent.com"
-                    onSuccess={googleAuth}
-                    onFailure={(err) => console.log(err)}
-                    cookiePolicy={"single_host_origin"}
-                  >
-                    <span>Sign Up with Google</span>
-                  </GoogleLogin>
-                  <p class="text-center text-muted mt-5 mb-0">
-                    Have already an account?{" "}
-                    <a href="/" class="fw-bold text-body">
-                      <u>Login here</u>
-                    </a>
-                  </p>
-                </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

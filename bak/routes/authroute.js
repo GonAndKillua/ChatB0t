@@ -110,7 +110,6 @@ route.post("/login", async (req, res) => {
 //          SignUp Handler
 // **********************************
 route.post("/signup", upload.single("photo"), async (req, res, next) => {
-  console.log(typeof process.env.CLOUDINARY_API_KEY);
   try {
     const result = await pool.query(`SELECT * FROM regi WHERE email=$1`, [
       req.body.email,
