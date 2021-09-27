@@ -10,5 +10,5 @@ app.use(cors());
 app.use("/auth", AuthRoute);
 
 app.listen(process.env.PORT, () => {
-  console.log("server started");
+  console.log("server started:" + process.env.PORT);
 });

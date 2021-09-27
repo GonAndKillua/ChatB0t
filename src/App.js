@@ -5,6 +5,7 @@ import Signup from "./Components/Signup/Signup";
 import Login from "./Components/Login/Login";
 import ForgetPassword from "./Components/Login/ForgetPassword";
 import Forget from "./Components/Login/Forget";
+import Form from "./Components/Signup/Form.jsx";
 function App() {
   // useEffect(() => {
   //   co isLogin = localStorage.getItem("isLogin");
@@ -16,6 +17,7 @@ function App() {
       <Switch>
         <Route exact path="/chat" component={Chat} />
         <Route exact path="/signup" component={Signup} />
+        <Route exact path="/edit" component={Form} />
         <Route exact path="/forgetpassword" component={ForgetPassword} />
         <Route exact path="/reset/:token" component={Forget} />
         <Route exact path="/" component={Login} />{" "}
