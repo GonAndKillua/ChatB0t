@@ -156,12 +156,12 @@ export default function Signup() {
                               class="form-select form-select-lg"
                               aria-label=".form-select-lg example"
                             >
-                              <option disabled>Gender</option>
+                              <option value="">Gender</option>
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
                               <option value="Others">Others</option>
                             </select>
-                            <label class="form-label" for="gender"></label>
+                            {/* <label class="form-label" for="gender"></label> */}
                             <p style={{ color: "red" }}>
                               {errors.gender?.message}
                             </p>
