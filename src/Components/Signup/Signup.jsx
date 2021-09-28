@@ -230,28 +230,6 @@ export default function Signup() {
                           </span>
                         </div>
 
-<<<<<<< HEAD
-                      <div class="row">
-                        <div class="col-md-6 mb-4 pb-2">
-                          <div class="form-outline">
-                            <select
-                              name="Gender"
-                              {...register("gender", {
-                                required: "Gender is required",
-                              })}
-                              class="form-select form-select-lg"
-                              aria-label=".form-select-lg example"
-                            >
-                              <option value="">Gender</option>
-                              <option value="Male">Male</option>
-                              <option value="Female">Female</option>
-                              <option value="Others">Others</option>
-                            </select>
-                            {/* <label class="form-label" for="gender"></label> */}
-                            <p style={{ color: "red" }}>
-                              {errors.gender?.message}
-                            </p>
-=======
                         <div class="row">
                           <div class="col-md-6 mb-4 pb-2">
                             <div class="form-outline">
@@ -284,7 +262,6 @@ export default function Signup() {
                                 {errors.gender?.message}
                               </span>
                             </div>
->>>>>>> bcd10e8d67a8e277e61e3e42ddaea7d959887c99
                           </div>
                           <div class="col-md-6 mb-4 pb-2">
                             <div class="form-outline">
@@ -394,7 +371,7 @@ export default function Signup() {
                             name="school"
                             class="form-control form-control-lg"
                             placeholder="School/College"
-                            {...register("school", {
+                            {...register("uname", {
                               required: "School is required",
                               maxLength: {
                                 value: 20,
