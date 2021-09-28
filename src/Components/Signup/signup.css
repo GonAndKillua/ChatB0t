@@ -4,8 +4,30 @@
   padding-left: 0.75em;
   padding-right: 0.75em;
 }
+h6 {
+  color: grey;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+}
 .card-registration .select-arrow {
   top: 13px;
+}
+.left {
+  background-image: linear-gradient(
+    to right top,
+    #9e8bc9,
+    #947dbd,
+    #8b6fb1,
+    #8261a5,
+    #795399,
+    #72579f,
+    #695ca4,
+    #6060a8,
+    #5476ba,
+    #4b8cc6,
+    #4da0cf,
+    #5ab3d5
+  );
 }
 .left-side {
   padding: 4.8rem 8rem;
