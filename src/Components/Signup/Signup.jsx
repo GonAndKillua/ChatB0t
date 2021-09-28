@@ -99,16 +99,14 @@ export default function Signup() {
                 <div class="row g-0">
                   <div class="col-xl-5 d-none d-xl-block left-drawer">
                     <div className="left-side">
-                      <div className="Chat-logo">
-                        <img src={IMG} alt="Sample photo" class="img-fluid" />
-                        <h2>Chat Bot</h2>
-                      </div>
+                      <img src={IMG} alt="Sample photo" class="img-fluid" />
 
                       <h5>
-                        Some Description Heading
+                        Heading
                         <br />
                         <br />
-                        <p> Description</p>
+                        <h5>Heading</h5>
+                        <h5>Heading</h5>
                       </h5>
                     </div>
                   </div>
@@ -118,6 +116,8 @@ export default function Signup() {
                       guideance
                     </h6> */}
                     <div class="card-body p-md-5 text-black">
+                      <h2>We Help Student To find Right Carrer </h2>
+                      <h2 class="mb-5">Path and choose great carrer</h2>
                       <h4 class="mb-5 text-uppercase">
                         Student registration form
                       </h4>

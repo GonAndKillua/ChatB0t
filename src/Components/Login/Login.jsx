@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { LoginUserApi } from "../../Service/api";
 import { LoginContext } from "../../Store/LoginContextProvider";
 import { useHistory } from "react-router";
-import "../Login/login.css";
+import classStyle from "../Login/login.module.css";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { GoogleLogin } from "react-google-login";
@@ -102,24 +102,34 @@ export default function Login() {
         draggable
         pauseOnHover
       />
-      <section class="vh-100 left">
+      <section class="h-100 left">
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col">
               <div class="card card-registration my-4">
                 <div class="row g-0">
-                  <div class="col-xl-5 d-none d-xl-block left-drawer">
-                    <div className="left-side">
-                      <div className="Chat-logo">
-                        <img src={IMG} alt="Sample photo" class="img-fluid" />
-                        <h2>Chat Bot</h2>
-                      </div>
+                  <div
+                    class={`col-xl-5 d-none d-xl-block ${classStyle["left-drawer"]}`}
+                  >
+                    <div className={classStyle["left-side"]}>
+                      <img
+                        src={IMG}
+                        alt="Sample photo"
+                        className={classStyle["img-fluid"]}
+                      />
 
                       <h5>
-                        Some Description Heading
+                        Sub Heading
                         <br />
                         <br />
-                        <p> Description</p>
+                        <p>
+                          {" "}
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Minima aut consectetur quod! Dolores quidem sed
+                          facilis voluptatum eveniet voluptate sapiente nihil,
+                          quam provident consequuntur repellendus molestiae
+                          perspiciatis sequi, suscipit culpa!
+                        </p>
                       </h5>
                     </div>
                   </div>
