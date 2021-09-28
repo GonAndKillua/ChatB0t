@@ -97,17 +97,22 @@ export default function Signup() {
             <div class="col">
               <div class="card card-registration my-4">
                 <div class="row g-0">
-                  <div class="col-xl-6 d-none d-xl-block left-drawer">
+                  <div class="col-xl-5 d-none d-xl-block left-drawer">
                     <div className="left-side">
-                      <img src={IMG} alt="Sample photo" class="img-fluid" />
-                      <h4>
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                      </h4>
+                      <div className="Chat-logo">
+                        <img src={IMG} alt="Sample photo" class="img-fluid" />
+                        <h2>Chat Bot</h2>
+                      </div>
+
+                      <h5>
+                        Some Description Heading
+                        <br />
+                        <br />
+                        <p> Description</p>
+                      </h5>
                     </div>
                   </div>
-                  <div class="col-xl-6">
+                  <div class="col-xl-7">
                     {/* <h6>
                       We help students to make right carrer choice through our
                       guideance

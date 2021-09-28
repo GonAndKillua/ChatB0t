@@ -29,23 +29,48 @@ h6 {
     #5ab3d5
   );
 }
+
+.left-drawer {
+  padding: 0;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(../../images/ChatBot_Isometric_02_generated.jpg);
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  object-fit: contain;
+}
 .left-side {
-  padding: 4.8rem 8rem;
+  padding: 2rem 0 0 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   gap: 4.8rem;
   height: 100%;
-}
-.img-fluid {
-  height: 12rem;
-}
-.left-drawer {
-  background-color: #cbdbfb;
-  /* background-image: url("../../images/chatbot-development-platform-abstract-concept-illustration/20945450.jpg"); */
+  color: #fff;
 }
 
+.Chat-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+.img-fluid {
+  height: 4rem;
+  width: 4.5rem;
+  border-radius: 50%;
+}
+.left-side h5 {
+  font-size: 1.5rem;
+  font-weight: 200;
+}
+
+.left-side h5 p {
+  font-size: 1rem;
+}
 /* label {
   font-size: 1.2rem;
 } */

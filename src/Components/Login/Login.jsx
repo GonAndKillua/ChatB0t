@@ -102,23 +102,28 @@ export default function Login() {
         draggable
         pauseOnHover
       />
-      <section class="h-100 left">
+      <section class="vh-100 left">
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col">
               <div class="card card-registration my-4">
                 <div class="row g-0">
-                  <div class="col-xl-6 d-none d-xl-block left-drawer">
+                  <div class="col-xl-5 d-none d-xl-block left-drawer">
                     <div className="left-side">
-                      <img src={IMG} alt="Sample photo" class="img-fluid" />
-                      <h4>
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                      </h4>
+                      <div className="Chat-logo">
+                        <img src={IMG} alt="Sample photo" class="img-fluid" />
+                        <h2>Chat Bot</h2>
+                      </div>
+
+                      <h5>
+                        Some Description Heading
+                        <br />
+                        <br />
+                        <p> Description</p>
+                      </h5>
                     </div>
                   </div>
-                  <div class="col-xl-6">
+                  <div class="col-xl-7">
                     <div class="card-body p-md-5 text-black">
                       <h4 class="mb-5 text-uppercase">Log In</h4>
                       <form
