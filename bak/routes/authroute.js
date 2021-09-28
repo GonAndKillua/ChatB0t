@@ -111,7 +111,8 @@ route.post("/signup", upload.single("photo"), async (req, res, next) => {
     const result = await pool.query(`SELECT * FROM regi WHERE email=$1`, [
       req.body.email,
     ]);
-    if (result.rows[0].email) {
+    console.log(result.rows[0]);
+    if (result.rows[0]) {
       bcrypt.hash(req.body.password, 10, async (err, hash) => {
         if (err) {
           // bcrypt block's error
@@ -121,18 +122,16 @@ route.post("/signup", upload.single("photo"), async (req, res, next) => {
         } else {
           cloudinary.uploader
             .upload(req.file.path)
-            .then((response) => {
+            .then(async (response) => {
               const result = await pool.query(
-                `INSERT INTO regi (firstname, lastname, email, gender, city, stat , pass, phone, university,photo,photo_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10, $11)`,
+                `INSERT INTO regi (firstname, lastname, email, gender, stat , pass, university,photo,photo_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
                 [
                   req.body.firstName,
                   req.body.lastName,
                   req.body.email,
                   req.body.gender,
-                  req.body.city,
                   req.body.state,
                   hash,
-                  req.body.phone,
                   req.body.uname,
                   response.secure_url,
                   response.public_id,

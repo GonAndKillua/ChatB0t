@@ -34,9 +34,7 @@ export default function Signup() {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("uname", data.uname);
-    formData.append("phone", data.phone);
     formData.append("state", data.state);
-    formData.append("city", data.city);
     try {
       const result = await SignUpUserApi(formData);
       toast.success(result.data.message, {
