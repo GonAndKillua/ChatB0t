@@ -369,7 +369,7 @@ export default function Signup() {
                             name="school"
                             class="form-control form-control-lg"
                             placeholder="School/College"
-                            {...register("school", {
+                            {...register("uname", {
                               required: "School is required",
                               maxLength: {
                                 value: 20,
