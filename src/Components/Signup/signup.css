@@ -42,7 +42,8 @@ h6 {
   height: 12rem;
 }
 .left-drawer {
-  background-color: #cbdbfb;
+  /* background-color: #cbdbfb; */
+  background-image: url(./../../images/ChatBot1.jpg);
 }
 /* label {
   font-size: 1.2rem;
