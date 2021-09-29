@@ -43,7 +43,7 @@
 .chatBoxTop {
   height: 90%;
   overflow-y: scroll;
-  padding-right: 0.5rem;
+  padding-left: 0.4rem;
 }
 
 .chatBoxBottom {
@@ -97,9 +97,9 @@
   font-size: 1.2rem;
   margin: 1.5rem auto;
   font-weight: 600;
-  border-bottom: 1px solid gray;
   font-family: "Fira Sans", sans-serif;
 }
+
 .sendButtonImg {
   width: 25px;
   height: 30px;

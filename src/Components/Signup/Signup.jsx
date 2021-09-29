@@ -106,6 +106,7 @@ export default function Signup() {
                         <br />
                         <br />
                         <h5>Heading</h5>
+                        <br />
                         <h5>Heading</h5>
                       </h5>
                     </div>
@@ -508,6 +509,12 @@ export default function Signup() {
                             Sign Up
                           </button>
                         </div>
+                        <p class="text-center text-muted mt-5 mb-0">
+                          Have already an account?{" "}
+                          <a href="/" class="fw-bold text-body">
+                            <u>Login here</u>
+                          </a>
+                        </p>
                       </form>
                     </div>
                   </div>

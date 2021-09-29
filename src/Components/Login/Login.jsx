@@ -218,6 +218,13 @@ export default function Login() {
                         >
                           Login
                         </button>
+                        <p class="small fw-bold mt-2 pt-1 mb-0">
+                          Don't have an account?{" "}
+                          <a href="./signup" class="link-danger">
+                            Register
+                          </a>
+                        </p>
+                        <a href="./forgetpassword">Forget Password ?</a>
                       </form>
                     </div>
                   </div>

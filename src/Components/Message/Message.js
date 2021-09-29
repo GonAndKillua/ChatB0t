@@ -1,12 +1,12 @@
 import React from "react";
 import "./Message.css";
-import img from "../../images/user.svg";
+import img from "../../images/img1.jpg";
 
-const Message = ({ own, msgToDisplay, btn, setMsg, sendMessage }) => {
+const Message = ({ own, msgToDisplay, btn, setMsg, sendMessage, photo }) => {
   return (
     <div className={own ? "message own" : "message"}>
       <div className="messageTop">
-        <img className="messageImg" src={img} alt="" />
+        <img className="messageImg" src={own ? photo : img} alt="" />
         <p className="messageText">{msgToDisplay}</p>
       </div>
       <div className="chatbutton">

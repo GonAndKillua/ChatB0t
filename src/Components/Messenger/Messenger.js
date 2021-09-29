@@ -7,6 +7,7 @@ import { useHistory } from "react-router";
 import chatright from "../../images/green.png";
 import ScrollableFeed from "react-scrollable-feed";
 import img from "../../images/arrow.png";
+import Barchat from "../../Barchart/Barchart";
 
 const Messenger = () => {
   const [mobileToggler, setMobileToggler] = useState(true);
@@ -57,18 +58,6 @@ const Messenger = () => {
     }
     // Fetching
   }, [msg]);
-
-  // useEffect(() => {
-  //   let sidebar = document.querySelector(".chatMenu");
-  //   let sidebarBtn = document.querySelector(".bi-list");
-  //   sidebarBtn.addEventListener("click", () => {
-  //     sidebar.classList.toggle("close");
-  //   });
-  //   // let sidebarBtn1 = document.querySelector(".bi-x-circle-fill");
-  //   // sidebarBtn1.addEventListener("click", () => {
-  //   //   sidebar.classList.toggle("close");
-  //   // });
-  // }, []);
 
   const onEnterkeyhandler = (e) => {
     if (e.key === "Enter") {
@@ -155,7 +144,6 @@ const Messenger = () => {
         >
           <div className="chatMenuWrapper">
             <p>
-              User Profile{" "}
               {!mobileToggler ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -174,8 +162,10 @@ const Messenger = () => {
                 ""
               )}
             </p>
-
             <Conversation userdata={userdata} />
+
+            {/* <Barchat /> */}
+            <br />
 
             <button className="chatlogoutButton" onClick={logoutHandler}>
               Logout
@@ -260,6 +250,7 @@ const Messenger = () => {
                     msgToDisplay={messageDetails.message}
                     setMsg={setMsg}
                     sendMessage={sendMessage}
+                    photo={userdata.photo}
                     // childMsgHandler={(data) => {
                     //   sendMessage(data);
                     // }}
@@ -283,15 +274,6 @@ const Messenger = () => {
                 type="submit"
               >
                 Send
-                {/* <img className="sendButtonImg" src={img} alt="" /> */}
-                {/* <i
-                  class="fas fa-location-arrow"
-                  style={{ fontSize: "1.1rem" }}
-                ></i> */}
-                {/* <i
-                  class="bi bi-caret-right-fill"
-                  style={{ fontSize: "1 rem" }}
-                ></i> */}
               </button>
             </div>
           </div>
