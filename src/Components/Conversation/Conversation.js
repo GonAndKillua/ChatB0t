@@ -4,37 +4,30 @@ import "./Conversation.css";
 const Conversation = ({ userdata }) => {
   const dummyCarrer = ["Engineering", "Medical"];
   const dummySubject = ["Data Science", "Microbio", "Economics"];
+
   return (
     <>
       <div className="color">
         <div className="contain">
           <div className="conversation">
+            <button className="editbutton">Edit Profile</button>
             <img
               className="conversationImg"
               src={userdata.photo}
               alt={userdata.fullname}
             />
+
             <span className="conversationName">{userdata.fullname}</span>
           </div>
-
-          <div className="userdetails text-secondary">
-            {/* <span>
-            <i class="bi bi-envelope-fill iconcolor"></i> &nbsp; &nbsp;
-            {userdata.email}
-          </span>
-          <hr /> */}
-            {/* <span>
-            <i class="bi bi-geo-alt-fill iconcolor"></i> &nbsp; &nbsp;
-            {userdata.state}{" "}
-          </span>
-          <br />
-          <hr /> */}
+          {/* universityname */}
+          <div className="userdetails text-center text-secondary">
             <span>
               <i class="fa fa-graduation-cap iconcolor" aria-hidden="true"></i>
               &nbsp; &nbsp;
               {userdata.uname}
             </span>
             <hr />
+
             <h5 className="scoreheading">RIASEC Score</h5>
             <h6 class="text-left">Realistic</h6>
             <div class="progress mb-2">
