@@ -2,21 +2,56 @@ import React, { useState } from "react";
 import "./Conversation.css";
 import img from "../../images/img1.jpg";
 
-const Conversation = ({ userdata }) => {
+const Conversation = ({
+  userdata,
+  DesktopToggler,
+  setDesktopToggler,
+  mobileToggler,
+  setMobileToggler,
+}) => {
   const dummyCarrer = ["Engineering", "Medical"];
   const dummySubject = ["Data Science", "Microbio", "Economics"];
-  const [editProfile, setEditProfile] = useState(false);
+  const [editProfile, setEditProfile] = useState(true);
   // setEditProfile(!editProfile);
+  const updateHandler = (e) => {
+    setEditProfile(!editProfile);
+  };
   return (
     <>
       <div className="color">
         <div className="contain">
-          <button
-            className="editbutton"
-            onClick={() => setEditProfile(!editProfile)}
-          >
-            <i class="bi bi-pencil-square"></i>
-          </button>
+          {editProfile ? (
+            <button
+              className="editbutton"
+              onClick={() => setEditProfile(!editProfile)}
+            >
+              <i class="bi bi-pencil-square edit"></i>
+            </button>
+          ) : (
+            <button className="checkbutton" onClick={(e) => updateHandler(e)}>
+              <i class="bi bi-check2-square check"></i>
+            </button>
+          )}
+          {DesktopToggler && (
+            <button
+              className="crossButtoni"
+              onClick={() => {
+                setDesktopToggler(!DesktopToggler);
+              }}
+            >
+              <i class="bi bi-x-square crossi"></i>
+            </button>
+          )}
+          {!mobileToggler && (
+            <button
+              className="crossButtoni"
+              onClick={() => {
+                setMobileToggler(!mobileToggler);
+              }}
+            >
+              <i class="bi bi-x-square crossi"></i>
+            </button>
+          )}
           <div className="conversation">
             <img
               className="conversationImg"
