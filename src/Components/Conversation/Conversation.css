@@ -5,8 +5,9 @@
 
 .color {
   background-color: white;
+  padding-top: 12rem;
   border-radius: 10px;
-  height: 90%;
+  height: 80%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -31,6 +32,7 @@
 .contain {
   width: 70%;
   padding-top: 7rem;
+  position: relative;
 }
 .conversation {
   display: flex;
@@ -40,15 +42,11 @@
   flex-direction: column;
 }
 .editbutton {
-  margin-top: 42px;
-  margin-right: 100%;
-  width: 85px;
+  position: absolute;
+  right: 0;
+  top: 10;
   border: none;
-  background-color: #2b69e4;
-  color: #ffffff;
-  height: 27px;
-  border-radius: 7px;
-  text-align: center;
+  background-color: white;
 }
 .scoreheading {
   font-weight: 600;

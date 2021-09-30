@@ -1,64 +1,68 @@
 import React, { useState } from "react";
 import "./Conversation.css";
+import img from "../../images/img1.jpg";
 
 const Conversation = ({ userdata }) => {
   const dummyCarrer = ["Engineering", "Medical"];
   const dummySubject = ["Data Science", "Microbio", "Economics"];
-  const [editProfile, setEditProfile] = useState(true);
+  const [editProfile, setEditProfile] = useState(false);
   // setEditProfile(!editProfile);
   return (
     <>
       <div className="color">
         <div className="contain">
-          {editProfile ? (
-            <div>edit profile </div>
-          ) : (
-            <>
-              <div className="conversation">
-                <button className="editbutton">Edit Profile</button>
-                <img
-                  className="conversationImg"
-                  src={userdata.photo}
-                  alt={userdata.fullname}
-                />
-
-                <span className="conversationName">{userdata.fullname}</span>
-              </div>
-              <div className="userdetails text-center text-secondary">
-                <span>
-                  <i
-                    class="fa fa-graduation-cap iconcolor"
-                    aria-hidden="true"
-                  ></i>
-                  &nbsp; &nbsp;
-                  {userdata.uname}
-                </span>
-                <hr />
-              </div>
-            </>
-          )}
+          <button
+            className="editbutton"
+            onClick={() => setEditProfile(!editProfile)}
+          >
+            <i class="bi bi-pencil-square"></i>
+          </button>
           <div className="conversation">
-            <button
-              className="editbutton"
-              onClick={() => setEditProfile(false)}
-            >
-              Edit Profile
-            </button>
             <img
               className="conversationImg"
-              src={userdata.photo}
-              alt={userdata.fullname}
+              src={userdata.photo || img}
+              alt={userdata.fullname || "Mohit"}
             />
 
-            <span className="conversationName">{userdata.fullname}</span>
+            {editProfile ? (
+              <span className="conversationName">
+                {userdata.fullname || "Mohit"}
+              </span>
+            ) : (
+              <div class="form-outline">
+                <input
+                  type="text"
+                  id="fName"
+                  name="firstName"
+                  class="form-control form-control-md"
+                  placeholder={userdata.fullname || "fullname"}
+                />
+              </div>
+            )}
           </div>
           {/* universityname */}
           <div className="userdetails text-center text-secondary">
-            <span>
-              <i class="fa fa-graduation-cap iconcolor" aria-hidden="true"></i>
-              &nbsp; &nbsp;
-              {userdata.uname}
-            </span>
+            {editProfile ? (
+              <span>
+                <i
+                  class="fa fa-graduation-cap iconcolor"
+                  aria-hidden="true"
+                ></i>
+                &nbsp; &nbsp;
+                {userdata.uname || "Marwadi University"}
+              </span>
+            ) : (
+              <div class="form-outline">
+                <input
+                  type="text"
+                  id="fName"
+                  name="firstName"
+                  class="form-control form-control-md"
+                  placeholder={userdata.fullname || "University"}
+                />
+              </div>
+            )}
+
             <hr />
           </div>
 
