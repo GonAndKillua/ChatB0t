@@ -5,7 +5,7 @@
 
 .color {
   background-color: white;
-  padding-top: 12rem;
+  padding-top: 7rem;
   border-radius: 10px;
   height: 80%;
   position: relative;
@@ -43,7 +43,7 @@
 }
 .editbutton {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 10;
   border: none;
   background-color: white;

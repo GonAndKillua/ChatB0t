@@ -5,8 +5,8 @@ import img from "../../images/img1.jpg";
 const Conversation = ({ userdata }) => {
   const dummyCarrer = ["Engineering", "Medical"];
   const dummySubject = ["Data Science", "Microbio", "Economics"];
-  const [editProfile, setEditProfile] = useState(false);
-  // setEditProfile(!editProfile);
+  const [editProfile, setEditProfile] = useState(true);
+
   return (
     <>
       <div className="color">
@@ -58,7 +58,7 @@ const Conversation = ({ userdata }) => {
                   id="fName"
                   name="firstName"
                   class="form-control form-control-md"
-                  placeholder={userdata.fullname || "University"}
+                  placeholder={userdata.uname || "University"}
                 />
               </div>
             )}
