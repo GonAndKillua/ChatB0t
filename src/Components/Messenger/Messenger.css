@@ -12,6 +12,7 @@
   border-radius: 18px;
   clear: left;
   opacity: 1;
+  display: block;
 }
 
 .chatBox {
@@ -160,9 +161,7 @@
   .menu {
     font-weight: 600;
   }
-  .hideMobileMenu {
-    display: none;
-  }
+
   .menuSheet {
     position: fixed;
     width: 70%; /* Full width (cover the whole page) */
@@ -185,6 +184,9 @@
     width: 60%;
     height: 100%;
     margin: 1rem;
+  }
+  .hideMobileMenu {
+    display: none;
   }
   .chatlogoutButton {
     width: 90%;

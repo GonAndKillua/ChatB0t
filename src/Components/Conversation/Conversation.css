@@ -41,12 +41,46 @@
   cursor: pointer;
   flex-direction: column;
 }
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+  line-height: 0;
+}
 .editbutton {
   position: absolute;
   left: 0;
   top: 10;
   border: none;
   background-color: white;
+}
+.edit {
+  font-size: 1.5rem;
+  color: red;
+  font-weight: 700;
+}
+.checkbutton {
+  position: absolute;
+  left: 0;
+  top: 10;
+  border: none;
+  background-color: white;
+}
+.check {
+  font-size: 1.5rem;
+  color: green;
+  font-weight: 700;
+}
+.crossButtoni {
+  position: absolute;
+  right: 0;
+  top: 1;
+  border: none;
+  background-color: white;
+}
+.crossi {
+  font-size: 1.5rem;
+  color: red;
+
+  font-weight: 700;
 }
 .scoreheading {
   font-weight: 600;
@@ -85,6 +119,7 @@ label {
 
 @media only screen and (max-width: 800px) {
   .color {
+    padding-top: 0.5rem;
     display: block;
     background-color: white;
     height: auto;
@@ -93,7 +128,9 @@ label {
     align-items: center;
     justify-content: center;
   }
-
+  .contain {
+    padding-top: 0;
+  }
   .conversationImg {
     height: 45px;
     width: 45px;
