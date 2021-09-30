@@ -4,44 +4,14 @@ import "./Conversation.css";
 const Conversation = ({ userdata }) => {
   const dummyCarrer = ["Engineering", "Medical"];
   const dummySubject = ["Data Science", "Microbio", "Economics"];
-  const [editProfile, setEditProfile] = useState(true);
+  const [editProfile, setEditProfile] = useState(false);
   // setEditProfile(!editProfile);
   return (
     <>
       <div className="color">
         <div className="contain">
-          {editProfile ? (
-            <div>edit profile </div>
-          ) : (
-            <>
-              <div className="conversation">
-                <button className="editbutton">Edit Profile</button>
-                <img
-                  className="conversationImg"
-                  src={userdata.photo}
-                  alt={userdata.fullname}
-                />
-
-                <span className="conversationName">{userdata.fullname}</span>
-              </div>
-              <div className="userdetails text-center text-secondary">
-                <span>
-                  <i
-                    class="fa fa-graduation-cap iconcolor"
-                    aria-hidden="true"
-                  ></i>
-                  &nbsp; &nbsp;
-                  {userdata.uname}
-                </span>
-                <hr />
-              </div>
-            </>
-          )}
           <div className="conversation">
-            <button
-              className="editbutton"
-              onClick={() => setEditProfile(false)}
-            >
+            <button className="editbutton" onClick={() => setEditProfile(true)}>
               Edit Profile
             </button>
             <img
@@ -49,8 +19,11 @@ const Conversation = ({ userdata }) => {
               src={userdata.photo}
               alt={userdata.fullname}
             />
-
-            <span className="conversationName">{userdata.fullname}</span>
+            {editProfile ? (
+              <input type="text" value={userdata.fullname} />
+            ) : (
+              <span className="conversationName">{userdata.fullname}</span>
+            )}
           </div>
           {/* universityname */}
           <div className="userdetails text-center text-secondary">
