@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Conversation.css";
+import img from "../../images/img1.jpg";
 
 const Conversation = ({ userdata }) => {
   const dummyCarrer = ["Engineering", "Medical"];
@@ -10,28 +11,58 @@ const Conversation = ({ userdata }) => {
     <>
       <div className="color">
         <div className="contain">
+          <button
+            className="editbutton"
+            onClick={() => setEditProfile(!editProfile)}
+          >
+            <i class="bi bi-pencil-square"></i>
+          </button>
           <div className="conversation">
-            <button className="editbutton" onClick={() => setEditProfile(true)}>
-              Edit Profile
-            </button>
             <img
               className="conversationImg"
-              src={userdata.photo}
-              alt={userdata.fullname}
+              src={userdata.photo || img}
+              alt={userdata.fullname || "Mohit"}
             />
+
             {editProfile ? (
-              <input type="text" value={userdata.fullname} />
+              <span className="conversationName">
+                {userdata.fullname || "Mohit"}
+              </span>
             ) : (
-              <span className="conversationName">{userdata.fullname}</span>
+              <div class="form-outline">
+                <input
+                  type="text"
+                  id="fName"
+                  name="firstName"
+                  class="form-control form-control-md"
+                  placeholder={userdata.fullname || "fullname"}
+                />
+              </div>
             )}
           </div>
           {/* universityname */}
           <div className="userdetails text-center text-secondary">
-            <span>
-              <i class="fa fa-graduation-cap iconcolor" aria-hidden="true"></i>
-              &nbsp; &nbsp;
-              {userdata.uname}
-            </span>
+            {editProfile ? (
+              <span>
+                <i
+                  class="fa fa-graduation-cap iconcolor"
+                  aria-hidden="true"
+                ></i>
+                &nbsp; &nbsp;
+                {userdata.uname || "Marwadi University"}
+              </span>
+            ) : (
+              <div class="form-outline">
+                <input
+                  type="text"
+                  id="fName"
+                  name="firstName"
+                  class="form-control form-control-md"
+                  placeholder={userdata.fullname || "University"}
+                />
+              </div>
+            )}
+
             <hr />
           </div>
 
