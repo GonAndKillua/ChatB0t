@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Conversation.css";
 import jwt from "jsonwebtoken";
 import img from "../../images/img1.jpg";
@@ -26,7 +26,9 @@ const Conversation = ({
   const onValueChange = (e) => {
     seteditState({ ...editState, [e.target.name]: e.target.value });
   };
-
+  useEffect(() => {
+    console.log(userdata.photo);
+  }, [userdata]);
   const updateHandler = async (e) => {
     let fullname = "";
     if (editState.fullname === "") {
@@ -50,11 +52,13 @@ const Conversation = ({
         "http://localhost:8080/auth/editprofile",
         formdata
       );
-      const token = response.data.token;
+
+      localStorage.removeItem("token");
+      localStorage.setItem("token", response.data.token);
       try {
+        const token = localStorage.getItem("token");
         const result = jwt.verify(token, "this is key");
-        localStorage.removeItem("token");
-        localStorage.setItem("token", token);
+
         console.log(result.photo);
         setuserdata({
           ...userdata,
@@ -63,7 +67,6 @@ const Conversation = ({
           uname: result.uname,
           photo: result.photo,
         });
-        console.log("userdara: ", userdata.photo);
 
         toast.success(response.data.message, {
           position: "top-right",
