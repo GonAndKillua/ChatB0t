@@ -327,7 +327,6 @@ route.patch("/editprofile", async (req, res) => {
       "UPDATE regi SET firstname = $1, lastname = $2 WHERE email = $3",
       [req.body.firstName, req.body.lastName, req.body.email]
     );
-
     const results = await pool.query("SELECT * FROM regi WHERE email=$1", [
       req.body.email,
     ]);
