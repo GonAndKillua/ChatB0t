@@ -321,7 +321,7 @@ route.post("/reset", async (req, res) => {
 route.patch("/editprofile", upload.single("photo"), async (req, res) => {
   console.log("req.file: ", req.file);
   console.log("req.files: ", req.files);
-  if (typeof req.files !== "undefined" && req.files.length > 0) {
+  if (typeof req.file !== "undefined") {
     try {
       // first delete image stored in cloudinary
       let results = await pool.query("SELECT * FROM regi WHERE email=$1", [
@@ -357,7 +357,7 @@ route.patch("/editprofile", upload.single("photo"), async (req, res) => {
   } else {
     try {
       await pool.query(
-        "UPDATE regi SET firstname=$1,lastname=$2,uname=$3 WHERE email=$4",
+        "UPDATE regi SET firstname=$1,lastname=$2,university=$3 WHERE email=$4",
         [req.body.firstName, req.body.lastName, req.body.uname, req.body.email]
       );
     } catch (error) {

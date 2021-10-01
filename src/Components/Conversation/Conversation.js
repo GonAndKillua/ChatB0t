@@ -55,6 +55,7 @@ const Conversation = ({
         const result = jwt.verify(token, "this is key");
         localStorage.removeItem("token");
         localStorage.setItem("token", token);
+        console.log(result.photo);
         setuserdata({
           ...userdata,
           fullname: `${result.firstname} ${result.lastname}`,
@@ -62,6 +63,7 @@ const Conversation = ({
           uname: result.uname,
           photo: result.photo,
         });
+        console.log("userdara: ", userdata.photo);
 
         toast.success(response.data.message, {
           position: "top-right",
