@@ -50,7 +50,6 @@ const client = new OAuth2Client(process.env.OAUTH_CLIENT_KEY);
 //          Login Handler
 // **********************************
 route.post("/login", async (req, res) => {
-  console.log("body:", req.body);
   let results;
   try {
     results = await pool.query(`SELECT * FROM regi WHERE email=$1`, [
@@ -346,7 +345,25 @@ route.patch("/editprofile", upload.single("photo"), async (req, res) => {
               req.body.email,
             ]
           );
+          const token = jwt.sign(
+            {
+              email: req.body.email,
+              firstname: req.body.firstName,
+              lastname: req.body.lastName,
+              uname: req.body.uname,
+              photo: photoUrl,
+            },
+            "this is key", // Token secret key
+            {
+              expiresIn: "24h",
+            }
+          );
+          return res.status(200).json({
+            token: token,
+            message: "Update Successfully",
+          });
         })
+
         .catch((error) => {
           res.status(401).json({
             message: "Unable to upload image",
@@ -363,35 +380,29 @@ route.patch("/editprofile", upload.single("photo"), async (req, res) => {
         "UPDATE regi SET firstname=$1,lastname=$2,university=$3 WHERE email=$4",
         [req.body.firstName, req.body.lastName, req.body.uname, req.body.email]
       );
+      const token = jwt.sign(
+        {
+          email: req.body.email,
+          firstname: req.body.firstName,
+          lastname: req.body.lastName,
+          uname: req.body.uname,
+          photo: photoUrl,
+        },
+        "this is key", // Token secret key
+        {
+          expiresIn: "24h",
+        }
+      );
+      return res.status(200).json({
+        token: token,
+        message: "Update Successfully",
+      });
     } catch (error) {
       res.status(401).json({
         message: "Error:" + error.message,
       });
     }
   }
-
-  // const results = await pool.query("SELECT * FROM regi WHERE email=$1", [
-  //   req.body.email,
-  // ]);
-  // console.log(results.rows[0].photo);
-  console.log("End of function:", photoUrl);
-  const token = jwt.sign(
-    {
-      email: req.body.email,
-      firstname: req.body.firstName,
-      lastname: req.body.lastName,
-      uname: req.body.uname,
-      photo: photoUrl,
-    },
-    "this is key", // Token secret key
-    {
-      expiresIn: "24h",
-    }
-  );
-  return res.status(200).json({
-    token: token,
-    message: "Update Successfully",
-  });
 });
 
 // **********************************

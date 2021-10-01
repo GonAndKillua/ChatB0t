@@ -22,28 +22,35 @@ const Conversation = ({
     uname: "",
     photo: "",
   });
-  useEffect(() => {
-    console.log(userdata.photo);
-  }, [userdata]);
   const history = useHistory();
   const onValueChange = (e) => {
     seteditState({ ...editState, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    console.log(userdata.photo);
-  }, [userdata]);
+
   const updateHandler = async (e) => {
     let fullname = "";
     if (editState.fullname === "") {
       fullname = userdata.fullname.split(" ");
     } else {
       fullname = editState.fullname.split(" ");
+
+      if (fullname[1] == undefined) {
+        toast.error("Please Enter Your Full Name", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        return;
+      }
     }
     if (editState.uname === "") {
       editState.uname = userdata.uname;
     }
 
-    console.log("photo:", editState.photo);
     const formdata = new FormData();
 
     formdata.append("firstName", fullname[0]);
@@ -60,12 +67,10 @@ const Conversation = ({
 
       localStorage.removeItem("token");
       localStorage.setItem("token", response.data.token);
-      console.log("Token:", response.data.token);
       try {
         const token = localStorage.getItem("token");
         const result = jwt.verify(token, "this is key");
 
-        console.log(result.photo);
         setuserdata({
           ...userdata,
           fullname: `${result.firstname} ${result.lastname}`,
@@ -84,6 +89,7 @@ const Conversation = ({
           progress: undefined,
         });
         seteditState({ ...editState, fullname: "", uname: "", photo: "" });
+
         setTimeout(() => {
           history.push("/chat");
         }, 5000);
