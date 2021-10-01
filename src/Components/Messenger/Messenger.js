@@ -27,10 +27,7 @@ const Messenger = () => {
   const [userdata, setuserdata] = useState({
     fullname: "",
     email: "",
-    gender: "",
-    city: "",
-    state: "",
-    phone: "",
+    photo: "",
     uname: "",
   });
 
@@ -44,10 +41,6 @@ const Messenger = () => {
           ...userdata,
           fullname: `${result.firstname} ${result.lastname}`,
           email: result.email,
-          gender: result.gender,
-          city: result.city,
-          state: result.state,
-          phone: result.phone,
           uname: result.uname,
           photo: result.photo,
         });
@@ -150,6 +143,7 @@ const Messenger = () => {
               setDesktopToggler={setDesktopToggler}
               mobileToggler={mobileToggler}
               setMobileToggler={setMobileToggler}
+              setuserdata={setuserdata}
             />
 
             {/* <Barchat /> */}
