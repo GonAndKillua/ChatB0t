@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./Conversation.css";
 import img from "../../images/img1.jpg";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const Conversation = ({
   userdata,
@@ -8,18 +10,41 @@ const Conversation = ({
   setDesktopToggler,
   mobileToggler,
   setMobileToggler,
+  setuserdata,
 }) => {
   const dummyCarrer = ["Engineering", "Medical"];
   const dummySubject = ["Data Science", "Microbio", "Economics"];
   const [editProfile, setEditProfile] = useState(true);
-  // setEditProfile(!editProfile);
-  const updateHandler = (e) => {
+  const [editState, seteditState] = useState({
+    fullname: "",
+    uname: "",
+  });
+
+  const onValueChange = (e) => {
+    seteditState({ ...editState, [e.target.name]: e.target.name });
+  };
+
+  const updateHandler = async (e) => {
+    const fullname = editState.fullname.split(" ");
+    console.log("fullName:", fullname);
+    try {
+      const response = await axios.patch("/auth/editprofile", {
+        firstName: fullname[0],
+        lastName: fullname[1],
+        email: userdata.email,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+
     setEditProfile(!editProfile);
   };
   return (
     <>
       <div className="color">
         <div className="contain">
+          {/* Start toggle the edit profile button  */}
           {editProfile ? (
             <button
               className="editbutton"
@@ -32,6 +57,9 @@ const Conversation = ({
               <i class="bi bi-check2-square check"></i>
             </button>
           )}
+          {/* End toggle the edit profile button  */}
+
+          {/* Start Desktop toggle button  */}
           {DesktopToggler && (
             <button
               className="crossButtoni"
@@ -42,6 +70,7 @@ const Conversation = ({
               <i class="bi bi-x-square crossi"></i>
             </button>
           )}
+          {/* Start Mobile toggle button  */}
           {!mobileToggler && (
             <button
               className="crossButtoni"
@@ -80,9 +109,12 @@ const Conversation = ({
                 <input
                   type="text"
                   id="fName"
-                  name="firstName"
+                  name="fullname"
                   class="form-control form-control-md"
                   placeholder={userdata.fullname || "fullname"}
+                  onChange={(e) => {
+                    onValueChange(e);
+                  }}
                 />
               </div>
             )}
@@ -102,10 +134,13 @@ const Conversation = ({
               <div class="form-outline">
                 <input
                   type="text"
-                  id="fName"
-                  name="firstName"
+                  id="uname"
+                  name="uname"
                   class="form-control form-control-md"
                   placeholder={userdata.uname || "University"}
+                  onChange={(e) => {
+                    onValueChange(e);
+                  }}
                 />
               </div>
             )}

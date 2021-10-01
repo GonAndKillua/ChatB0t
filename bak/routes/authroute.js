@@ -74,11 +74,7 @@ route.post("/login", async (req, res) => {
               email: results.rows[0].email,
               firstname: results.rows[0].firstname,
               lastname: results.rows[0].lastname,
-              gender: results.rows[0].gender,
-              state: results.rows[0].stat,
-              city: results.rows[0].city,
               uname: results.rows[0].university,
-              phone: results.rows[0].phone,
               photo: results.rows[0].photo,
             },
             "this is key", // Token secret key
@@ -315,6 +311,43 @@ route.post("/reset", async (req, res) => {
     }
   } catch (error) {
     console.log(error);
+  }
+});
+
+// **********************************
+//     Edit Profile Part
+// **********************************
+
+route.patch("/editprofile", async (req, res) => {
+  console.log("FirstName:", req.body.firstName);
+  console.log("lastName:", req.body.lastName);
+  console.log("email:", req.body.email);
+  try {
+    const results = await pool.query(
+      "UPDATE regi SET firstname = $1, lastname = $2 WHERE email = $3",
+      [req.body.firstName, req.body.lastName, req.body.email]
+    );
+    const token = jwt.sign(
+      {
+        email: results.rows[0].email,
+        firstname: results.rows[0].firstname,
+        lastname: results.rows[0].lastname,
+        uname: results.rows[0].university,
+        photo: results.rows[0].photo,
+      },
+      "this is key", // Token secret key
+      {
+        expiresIn: "24h",
+      }
+    );
+    return res.status(200).json({
+      token: token,
+      message: "Update Successfully",
+    });
+  } catch (error) {
+    res.status(401).json({
+      message: "Error:" + error.message,
+    });
   }
 });
 
