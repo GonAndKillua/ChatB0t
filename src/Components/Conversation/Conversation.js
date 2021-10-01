@@ -21,18 +21,23 @@ const Conversation = ({
   });
 
   const onValueChange = (e) => {
-    seteditState({ ...editState, [e.target.name]: e.target.name });
+    seteditState({ ...editState, [e.target.name]: e.target.value });
   };
 
   const updateHandler = async (e) => {
     const fullname = editState.fullname.split(" ");
-    console.log("fullName:", fullname);
+    console.log("fullName:", fullname[0]);
+    console.log("userdata :", userdata);
     try {
-      const response = await axios.patch("/auth/editprofile", {
-        firstName: fullname[0],
-        lastName: fullname[1],
-        email: userdata.email,
-      });
+      const response = await axios.patch(
+        "http://localhost:8080/auth/editprofile",
+        {
+          firstName: fullname[0],
+          lastName: fullname[1],
+          email: userdata.email,
+          uname: editState.uname,
+        }
+      );
       console.log(response.data);
     } catch (error) {
       console.log(error.response.data.message);

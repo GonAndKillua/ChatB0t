@@ -323,10 +323,13 @@ route.patch("/editprofile", async (req, res) => {
   console.log("lastName:", req.body.lastName);
   console.log("email:", req.body.email);
   try {
-    const results = await pool.query(
+    const response = await pool.query(
       "UPDATE regi SET firstname = $1, lastname = $2 WHERE email = $3",
       [req.body.firstName, req.body.lastName, req.body.email]
     );
+    const results = await pool.query("SELECT * FROM regi WHERE email=$1", [
+      req.body.email,
+    ]);
     const token = jwt.sign(
       {
         email: results.rows[0].email,
