@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import "./Conversation.css";
 import jwt from "jsonwebtoken";
 import img from "../../images/img1.jpg";
-import jwt from "jsonwebtoken";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useHistory } from "react-router";
 const Conversation = ({
   userdata,
   DesktopToggler,
@@ -23,7 +22,7 @@ const Conversation = ({
     uname: "",
     photo: "",
   });
-
+  const history = useHistory();
   const onValueChange = (e) => {
     seteditState({ ...editState, [e.target.name]: e.target.value });
   };
@@ -64,6 +63,9 @@ const Conversation = ({
           draggable: true,
           progress: undefined,
         });
+        setTimeout(() => {
+          history.push("/chat");
+        }, 5000);
       } catch (error) {
         toast.error("Invalid token error", {
           position: "top-right",
