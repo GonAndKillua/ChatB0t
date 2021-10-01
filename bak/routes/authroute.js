@@ -319,13 +319,10 @@ route.post("/reset", async (req, res) => {
 // **********************************
 
 route.patch("/editprofile", async (req, res) => {
-  console.log("FirstName:", req.body.firstName);
-  console.log("lastName:", req.body.lastName);
-  console.log("email:", req.body.email);
   try {
     const response = await pool.query(
-      "UPDATE regi SET firstname = $1, lastname = $2 WHERE email = $3",
-      [req.body.firstName, req.body.lastName, req.body.email]
+      "UPDATE regi SET firstname = $1, lastname = $2 , university= $3 WHERE email = $4",
+      [req.body.firstName, req.body.lastName, req.body.uname, req.body.email]
     );
     const results = await pool.query("SELECT * FROM regi WHERE email=$1", [
       req.body.email,

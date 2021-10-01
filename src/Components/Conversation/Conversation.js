@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./Conversation.css";
 import img from "../../images/img1.jpg";
-import { useForm } from "react-hook-form";
+
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Conversation = ({
   userdata,
@@ -26,8 +28,7 @@ const Conversation = ({
 
   const updateHandler = async (e) => {
     const fullname = editState.fullname.split(" ");
-    console.log("fullName:", fullname[0]);
-    console.log("userdata :", userdata);
+
     try {
       const response = await axios.patch(
         "http://localhost:8080/auth/editprofile",
@@ -38,15 +39,65 @@ const Conversation = ({
           uname: editState.uname,
         }
       );
-      console.log(response.data);
+      const token = response.data.token;
+      try {
+        const result = jwt.verify(token, "this is key");
+        localStorage.removeItem("token");
+        localStorage.setItem("token", token);
+        setuserdata({
+          ...userdata,
+          fullname: `${result.firstname} ${result.lastname}`,
+          email: result.email,
+          uname: result.uname,
+        });
+
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } catch (error) {
+        toast.error("Invalid token error", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     } catch (error) {
-      console.log(error.response.data.message);
+      toast.error(error.response.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
 
     setEditProfile(!editProfile);
   };
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="color">
         <div className="contain">
           {/* Start toggle the edit profile button  */}
@@ -120,6 +171,7 @@ const Conversation = ({
                   onChange={(e) => {
                     onValueChange(e);
                   }}
+                  value={editProfile.fullname}
                 />
               </div>
             )}
@@ -146,6 +198,7 @@ const Conversation = ({
                   onChange={(e) => {
                     onValueChange(e);
                   }}
+                  value={editProfile.uname}
                 />
               </div>
             )}
