@@ -33,6 +33,8 @@ const Messenger = () => {
 
   const history = useHistory();
   useEffect(() => {
+    console.log("firstAppearnce value:", firstAppearance);
+
     if (firstAppearance) {
       try {
         const token = localStorage.getItem("token");

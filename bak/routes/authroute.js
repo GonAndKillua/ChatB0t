@@ -321,6 +321,8 @@ route.post("/reset", async (req, res) => {
 route.patch("/editprofile", upload.single("photo"), async (req, res) => {
   console.log("req.file: ", req.file);
   let photoUrl = req.body.photoUrl;
+
+  console.log("Start of function:", photoUrl);
   if (typeof req.file !== "undefined") {
     try {
       // first delete image stored in cloudinary
@@ -372,7 +374,7 @@ route.patch("/editprofile", upload.single("photo"), async (req, res) => {
   //   req.body.email,
   // ]);
   // console.log(results.rows[0].photo);
-  console.log(photoUrl);
+  console.log("End of function:", photoUrl);
   const token = jwt.sign(
     {
       email: req.body.email,

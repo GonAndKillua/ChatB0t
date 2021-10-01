@@ -42,9 +42,7 @@ const Conversation = ({
     if (editState.uname === "") {
       editState.uname = userdata.uname;
     }
-    if (editState.photo === "") {
-      editState.photo = userdata.photo;
-    }
+
     console.log("photo:", editState.photo);
     const formdata = new FormData();
 
@@ -62,6 +60,7 @@ const Conversation = ({
 
       localStorage.removeItem("token");
       localStorage.setItem("token", response.data.token);
+      console.log("Token:", response.data.token);
       try {
         const token = localStorage.getItem("token");
         const result = jwt.verify(token, "this is key");
@@ -85,9 +84,9 @@ const Conversation = ({
           progress: undefined,
         });
         seteditState({ ...editState, fullname: "", uname: "", photo: "" });
-        // setTimeout(() => {
-        //   history.push("/chat");
-        // }, 5000);
+        setTimeout(() => {
+          history.push("/chat");
+        }, 5000);
       } catch (error) {
         toast.error("Invalid token error", {
           position: "top-right",
