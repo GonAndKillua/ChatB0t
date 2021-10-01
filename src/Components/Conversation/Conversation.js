@@ -28,7 +28,16 @@ const Conversation = ({
   };
 
   const updateHandler = async (e) => {
-    const fullname = editState.fullname.split(" ");
+    let fullname = "";
+    if (editState.fullname === "") {
+      fullname = userdata.fullname.split(" ");
+    } else {
+      fullname = editState.fullname.split(" ");
+    }
+    if (editState.uname === "") {
+      editState.uname = userdata.uname;
+    }
+
     const formdata = new FormData();
 
     formdata.append("firstName", fullname[0]);

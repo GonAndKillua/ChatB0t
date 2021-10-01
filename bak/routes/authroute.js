@@ -319,59 +319,74 @@ route.post("/reset", async (req, res) => {
 // **********************************
 
 route.patch("/editprofile", upload.single("photo"), async (req, res) => {
-  try {
-    // first delete image stored in cloudinary
-    let results = await pool.query("SELECT * FROM regi WHERE email=$1", [
-      req.body.email,
-    ]);
-    await cloudinary.uploader.destroy(results.rows[0].photo_id);
-    //After Previous image is destroyed upload new image
-    cloudinary.uploader
-      .upload(req.file.path)
-      .then(async (imageResponse) => {
-        await pool.query(
-          "UPDATE regi SET firstname = $1, lastname = $2 , university= $3, photo=$4, photo_id=$5 WHERE email = $6",
-          [
-            req.body.firstName,
-            req.body.lastName,
-            req.body.uname,
-            imageResponse.secure_url,
-            imageResponse.public_id,
-            req.body.email,
-          ]
-        );
-      })
-      .catch((error) => {
-        res.status(401).json({
-          message: "Unable to upload image",
+  console.log("req.file: ", req.file);
+  console.log("req.files: ", req.files);
+  if (typeof req.files !== "undefined" && req.files.length > 0) {
+    try {
+      // first delete image stored in cloudinary
+      let results = await pool.query("SELECT * FROM regi WHERE email=$1", [
+        req.body.email,
+      ]);
+      await cloudinary.uploader.destroy(results.rows[0].photo_id);
+      //After Previous image is destroyed upload new image
+      cloudinary.uploader
+        .upload(req.file.path)
+        .then(async (imageResponse) => {
+          await pool.query(
+            "UPDATE regi SET firstname = $1, lastname = $2 , university= $3, photo=$4, photo_id=$5 WHERE email = $6",
+            [
+              req.body.firstName,
+              req.body.lastName,
+              req.body.uname,
+              imageResponse.secure_url,
+              imageResponse.public_id,
+              req.body.email,
+            ]
+          );
+        })
+        .catch((error) => {
+          res.status(401).json({
+            message: "Unable to upload image",
+          });
         });
+    } catch (error) {
+      res.status(401).json({
+        message: "Error:" + error.message,
       });
-
-    results = await pool.query("SELECT * FROM regi WHERE email=$1", [
-      req.body.email,
-    ]);
-    const token = jwt.sign(
-      {
-        email: results.rows[0].email,
-        firstname: results.rows[0].firstname,
-        lastname: results.rows[0].lastname,
-        uname: results.rows[0].university,
-        photo: results.rows[0].photo,
-      },
-      "this is key", // Token secret key
-      {
-        expiresIn: "24h",
-      }
-    );
-    return res.status(200).json({
-      token: token,
-      message: "Update Successfully",
-    });
-  } catch (error) {
-    res.status(401).json({
-      message: "Error:" + error.message,
-    });
+    }
+  } else {
+    try {
+      await pool.query(
+        "UPDATE regi SET firstname=$1,lastname=$2,uname=$3 WHERE email=$4",
+        [req.body.firstName, req.body.lastName, req.body.uname, req.body.email]
+      );
+    } catch (error) {
+      res.status(401).json({
+        message: "Error:" + error.message,
+      });
+    }
   }
+
+  const results = await pool.query("SELECT * FROM regi WHERE email=$1", [
+    req.body.email,
+  ]);
+  const token = jwt.sign(
+    {
+      email: results.rows[0].email,
+      firstname: results.rows[0].firstname,
+      lastname: results.rows[0].lastname,
+      uname: results.rows[0].university,
+      photo: results.rows[0].photo,
+    },
+    "this is key", // Token secret key
+    {
+      expiresIn: "24h",
+    }
+  );
+  return res.status(200).json({
+    token: token,
+    message: "Update Successfully",
+  });
 });
 
 // **********************************
