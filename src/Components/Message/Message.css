@@ -23,6 +23,11 @@
   background-color: white;
   word-break: break-all;
 }
+.messageText.co1 {
+  float: left;
+  clear: both;
+  border-radius: 0px 50px 30px;
+}
 
 .message.own {
   align-items: flex-end;

@@ -7,7 +7,7 @@ const Message = ({ own, msgToDisplay, btn, setMsg, sendMessage, photo }) => {
     <div className={own ? "message own" : "message"}>
       <div className="messageTop">
         <img className="messageImg" src={own ? photo : img} alt="" />
-        <p className="messageText">{msgToDisplay}</p>
+        <p className="co1 messageText">{msgToDisplay}</p>
       </div>
       <div className="chatbutton">
         {btn != null
