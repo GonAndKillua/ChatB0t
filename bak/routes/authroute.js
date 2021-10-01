@@ -318,13 +318,36 @@ route.post("/reset", async (req, res) => {
 //     Edit Profile Part
 // **********************************
 
-route.patch("/editprofile", async (req, res) => {
+route.patch("/editprofile", upload.single("photo"), async (req, res) => {
   try {
-    const response = await pool.query(
-      "UPDATE regi SET firstname = $1, lastname = $2 , university= $3 WHERE email = $4",
-      [req.body.firstName, req.body.lastName, req.body.uname, req.body.email]
-    );
-    const results = await pool.query("SELECT * FROM regi WHERE email=$1", [
+    // first delete image stored in cloudinary
+    let results = await pool.query("SELECT * FROM regi WHERE email=$1", [
+      req.body.email,
+    ]);
+    await cloudinary.uploader.destroy(results.rows[0].photo_id);
+    //After Previous image is destroyed upload new image
+    cloudinary.uploader
+      .upload(req.file.path)
+      .then(async (imageResponse) => {
+        await pool.query(
+          "UPDATE regi SET firstname = $1, lastname = $2 , university= $3, photo=$4, photo_id=$5 WHERE email = $6",
+          [
+            req.body.firstName,
+            req.body.lastName,
+            req.body.uname,
+            imageResponse.secure_url,
+            imageResponse.public_id,
+            req.body.email,
+          ]
+        );
+      })
+      .catch((error) => {
+        res.status(401).json({
+          message: "Unable to upload image",
+        });
+      });
+
+    results = await pool.query("SELECT * FROM regi WHERE email=$1", [
       req.body.email,
     ]);
     const token = jwt.sign(

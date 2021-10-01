@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Conversation.css";
 import jwt from "jsonwebtoken";
 import img from "../../images/img1.jpg";
-
+import jwt from "jsonwebtoken";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,6 +21,7 @@ const Conversation = ({
   const [editState, seteditState] = useState({
     fullname: "",
     uname: "",
+    photo: "",
   });
 
   const onValueChange = (e) => {
@@ -29,16 +30,17 @@ const Conversation = ({
 
   const updateHandler = async (e) => {
     const fullname = editState.fullname.split(" ");
+    const formdata = new FormData();
 
+    formdata.append("firstName", fullname[0]);
+    formdata.append("lastName", fullname[1]);
+    formdata.append("email", userdata.email);
+    formdata.append("uname", editState.uname);
+    formdata.append("photo", editState.photo);
     try {
       const response = await axios.patch(
         "http://localhost:8080/auth/editprofile",
-        {
-          firstName: fullname[0],
-          lastName: fullname[1],
-          email: userdata.email,
-          uname: editState.uname,
-        }
+        formdata
       );
       const token = response.data.token;
       try {
@@ -50,6 +52,7 @@ const Conversation = ({
           fullname: `${result.firstname} ${result.lastname}`,
           email: result.email,
           uname: result.uname,
+          photo: result.photo,
         });
 
         toast.success(response.data.message, {
@@ -153,6 +156,9 @@ const Conversation = ({
                   type="file"
                   placeholder={userdata.photo}
                   id="inputUpload"
+                  onChange={(e) =>
+                    seteditState({ ...editState, photo: e.target.files[0] })
+                  }
                 />
               </label>
             )}
