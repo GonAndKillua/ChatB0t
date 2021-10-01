@@ -24,9 +24,9 @@
   word-break: break-all;
 }
 .messageText.co1 {
-  float: left;
+  /* float: left; */
   clear: both;
-  border-radius: 0px 50px 30px;
+  border-radius: 0px 25px 5px;
 }
 
 .message.own {
