@@ -320,7 +320,7 @@ route.post("/reset", async (req, res) => {
 
 route.patch("/editprofile", upload.single("photo"), async (req, res) => {
   console.log("req.file: ", req.file);
-  console.log("req.files: ", req.files);
+  let photoUrl = req.body.photoUrl;
   if (typeof req.file !== "undefined") {
     try {
       // first delete image stored in cloudinary
@@ -332,6 +332,7 @@ route.patch("/editprofile", upload.single("photo"), async (req, res) => {
       cloudinary.uploader
         .upload(req.file.path)
         .then(async (imageResponse) => {
+          photoUrl = imageResponse.secure_url;
           await pool.query(
             "UPDATE regi SET firstname = $1, lastname = $2 , university= $3, photo=$4, photo_id=$5 WHERE email = $6",
             [
@@ -367,16 +368,18 @@ route.patch("/editprofile", upload.single("photo"), async (req, res) => {
     }
   }
 
-  const results = await pool.query("SELECT * FROM regi WHERE email=$1", [
-    req.body.email,
-  ]);
+  // const results = await pool.query("SELECT * FROM regi WHERE email=$1", [
+  //   req.body.email,
+  // ]);
+  // console.log(results.rows[0].photo);
+  console.log(photoUrl);
   const token = jwt.sign(
     {
-      email: results.rows[0].email,
-      firstname: results.rows[0].firstname,
-      lastname: results.rows[0].lastname,
-      uname: results.rows[0].university,
-      photo: results.rows[0].photo,
+      email: req.body.email,
+      firstname: req.body.firstName,
+      lastname: req.body.lastName,
+      uname: req.body.uname,
+      photo: photoUrl,
     },
     "this is key", // Token secret key
     {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Conversation.css";
 import jwt from "jsonwebtoken";
 import img from "../../images/img1.jpg";
@@ -22,6 +22,9 @@ const Conversation = ({
     uname: "",
     photo: "",
   });
+  useEffect(() => {
+    console.log(userdata.photo);
+  }, [userdata]);
   const history = useHistory();
   const onValueChange = (e) => {
     seteditState({ ...editState, [e.target.name]: e.target.value });
@@ -37,7 +40,10 @@ const Conversation = ({
     if (editState.uname === "") {
       editState.uname = userdata.uname;
     }
-
+    if (editState.photo === "") {
+      editState.photo = userdata.photo;
+    }
+    console.log("photo:", editState.photo);
     const formdata = new FormData();
 
     formdata.append("firstName", fullname[0]);
@@ -45,6 +51,7 @@ const Conversation = ({
     formdata.append("email", userdata.email);
     formdata.append("uname", editState.uname);
     formdata.append("photo", editState.photo);
+    formdata.append("photoUrl", userdata.photo);
     try {
       const response = await axios.patch(
         "http://localhost:8080/auth/editprofile",
@@ -74,9 +81,10 @@ const Conversation = ({
           draggable: true,
           progress: undefined,
         });
-        setTimeout(() => {
-          history.push("/chat");
-        }, 5000);
+        seteditState({ ...editState, fullname: "", uname: "", photo: "" });
+        // setTimeout(() => {
+        //   history.push("/chat");
+        // }, 5000);
       } catch (error) {
         toast.error("Invalid token error", {
           position: "top-right",
