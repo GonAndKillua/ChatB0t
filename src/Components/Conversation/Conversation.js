@@ -32,6 +32,7 @@ const Conversation = ({
         firstName: fullname[0],
         lastName: fullname[1],
         email: userdata.email,
+        uname: editState.uname,
       });
       console.log(response.data);
     } catch (error) {
