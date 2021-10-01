@@ -7,7 +7,7 @@
   background-color: white;
   padding-top: 7rem;
   border-radius: 10px;
-  height: 80%;
+  height: 85%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -41,6 +41,19 @@
   cursor: pointer;
   flex-direction: column;
 }
+#inputUpload {
+  display: none;
+}
+
+.custom-file-upload {
+  cursor: pointer;
+  font-size: inherit;
+  color: #0c090d;
+}
+
+.custom-file-upload:hover {
+  text-decoration: underline;
+}
 [class^="bi-"]::before,
 [class*=" bi-"]::before {
   line-height: 0;
@@ -54,7 +67,7 @@
 }
 .edit {
   font-size: 1.5rem;
-  color: red;
+  color: blue;
   font-weight: 700;
 }
 .checkbutton {
@@ -119,10 +132,10 @@ label {
 
 @media only screen and (max-width: 800px) {
   .color {
-    padding-top: 0.5rem;
+    padding-top: 15rem;
     display: block;
     background-color: white;
-    height: auto;
+    height: 85%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -132,27 +145,163 @@ label {
     padding-top: 0;
   }
   .conversationImg {
-    height: 45px;
-    width: 45px;
+    height: 55px;
+    width: 55px;
     margin-top: 1rem;
+  }
+  .editbutton {
+    position: absolute;
+    left: 0;
+    top: 10;
+    border: none;
+    background-color: white;
+  }
+  .edit {
+    font-size: 1.3rem;
+    color: blue;
+    font-weight: 700;
+  }
+  .checkbutton {
+    position: absolute;
+    left: 0;
+    top: 10;
+    border: none;
+    background-color: white;
+  }
+  .check {
+    font-size: 1.3rem;
+    color: green;
+    font-weight: 700;
+  }
+  .crossButtoni {
+    position: absolute;
+    right: 0;
+    top: 1;
+    border: none;
+    background-color: white;
+  }
+  .crossi {
+    font-size: 1.3rem;
+    color: red;
+    font-weight: 700;
   }
 }
 @media only screen and (max-width: 500px) {
+  .color {
+    padding-top: 17rem;
+    display: block;
+    background-color: white;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .contain {
+    padding-top: 0;
+  }
+  .conversationImg {
+    height: 65px;
+    width: 65px;
+    margin-top: 1rem;
+  }
   .userdetails {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
   hr {
-    width: 80%;
+    width: 85%;
     margin-left: 1rem;
+  }
+  .editbutton {
+    position: absolute;
+    left: 0;
+    top: 10;
+    border: none;
+    background-color: white;
+  }
+  .edit {
+    font-size: 1.3rem;
+    color: blue;
+    font-weight: 700;
+  }
+  .checkbutton {
+    position: absolute;
+    left: 0;
+    top: 10;
+    border: none;
+    background-color: white;
+  }
+  .check {
+    font-size: 1.3rem;
+    color: green;
+    font-weight: 700;
+  }
+  .crossButtoni {
+    position: absolute;
+    right: 0;
+    top: 1;
+    border: none;
+    background-color: white;
+  }
+  .crossi {
+    font-size: 1.3rem;
+    color: red;
+    font-weight: 700;
   }
 }
 
 @media only screen and (max-width: 375px) {
+  .color {
+    padding-top: 20rem;
+    display: block;
+    background-color: white;
+    height: 85;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   .userdetails {
     font-size: 0.5rem;
   }
   hr {
     width: 100%;
     margin-left: 0.2rem;
+  }
+  .editbutton {
+    position: absolute;
+    left: 0;
+    top: 10;
+    border: none;
+    background-color: white;
+  }
+  .edit {
+    font-size: 1.1rem;
+    color: blue;
+    font-weight: 700;
+  }
+  .checkbutton {
+    position: absolute;
+    left: 0;
+    top: 10;
+    border: none;
+    background-color: white;
+  }
+  .check {
+    font-size: 1.1rem;
+    color: green;
+    font-weight: 700;
+  }
+  .crossButtoni {
+    position: absolute;
+    right: 0;
+    top: 1;
+    border: none;
+    background-color: white;
+  }
+  .crossi {
+    font-size: 1.1rem;
+    color: red;
+    font-weight: 700;
   }
 }

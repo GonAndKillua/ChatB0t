@@ -52,12 +52,24 @@ const Conversation = ({
               <i class="bi bi-x-square crossi"></i>
             </button>
           )}
+
           <div className="conversation">
-            <img
-              className="conversationImg"
-              src={userdata.photo || img}
-              alt={userdata.fullname || "Mohit"}
-            />
+            {editProfile ? (
+              <img
+                className="conversationImg"
+                src={userdata.photo || img}
+                alt={userdata.fullname || "Mohit"}
+              />
+            ) : (
+              <label for="inputUpload" class="custom-file-upload">
+                Change image
+                <input
+                  type="file"
+                  placeholder={userdata.photo}
+                  id="inputUpload"
+                />
+              </label>
+            )}
 
             {editProfile ? (
               <span className="conversationName">
@@ -75,7 +87,7 @@ const Conversation = ({
               </div>
             )}
           </div>
-          {/* universityname */}
+
           <div className="userdetails text-center text-secondary">
             {editProfile ? (
               <span>
